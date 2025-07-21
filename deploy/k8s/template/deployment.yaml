@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: practice-js-deployment
+  namespace: agility-${DEPLOY_ENV}-env
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: practice-js-service
+  template:
+    metadata:
+      labels:
+        app: practice-js-service
+    spec:
+      containers:
+        - name: practice-js-service
+          image: iamqbao/agility-practice-js:latest
+#          envFrom:
+#            - configMapRef:
+#                name: agility-${DEPLOY_ENV}-config
+#            - secretRef:
+#                name: agility-${DEPLOY_ENV}-secret
+          resources:
+            requests:
+              cpu: "500m"
+              memory: "500Mi"
+            limits:
+              cpu: "800m"
+              memory: "1Gi"
+---
