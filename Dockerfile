@@ -1,27 +1,15 @@
-# ======== BUILD STAGE ========
 FROM node:18-alpine AS builder
 
-WORKDIR /home/node/app
+WORKDIR /app
 
-# Copy lockfile + package.json
-COPY package.json yarn.lock ./
+COPY . .
 
-RUN yarn install --production
+FROM nginx:alpine
 
-COPY ./src ./src
-COPY ./public ./public
+COPY nginx.conf /etc/nginx/conf.d/default.conf
 
-FROM node:18-alpine
+COPY --from=builder /app /usr/share/nginx/html
 
-WORKDIR /home/node/app
+EXPOSE 80
 
-ENV NODE_ENV=production
-
-COPY --from=builder /home/node/app/node_modules ./node_modules
-COPY --from=builder /home/node/app/package.json ./
-COPY --from=builder /home/node/app/src ./src
-COPY --from=builder /home/node/app/public ./public
-
-EXPOSE 5000
-
-CMD ["node", "src/index.js"]
+CMD ["nginx", "-g", "daemon off;"]
