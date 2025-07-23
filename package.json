@@ -1,12 +1,10 @@
 {
-  "name": "internship-js",
+  "name": "internship-practice-js",
   "version": "1.0.0",
-  "main": "src/index.js",
   "license": "MIT",
   "type": "module",
   "scripts": {
-    "dev": "nodemon src/index.js",
-    "start": "node src/index.js",
+    "dev": "live-server public",
     "lint": "eslint . --ext .js",
     "build": "echo 'Không cần build: chỉ cần serve file tĩnh'"
   },
@@ -14,9 +12,6 @@
     "@eslint/js": "^9.31.0",
     "eslint": "^9.31.0",
     "globals": "^16.3.0",
-    "nodemon": "^3.1.10"
-  },
-  "dependencies": {
-    "express": "^5.1.0"
+    "live-server": "^1.2.2"
   }
 }
