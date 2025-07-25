@@ -4,9 +4,9 @@
   "description": "BMI Calculator using MVC and Strategy Pattern",
   "main": "src/main.js",
   "scripts": {
-    "start": "parcel src/index.html",
-    "dev": "parcel src/index.html",
-    "build": "parcel build src/index.html",
+    "start": "parcel index.html",
+    "dev": "parcel index.html",
+    "build": "parcel build index.html",
     "lint": "eslint . --ext .js"
   },
   "license": "MIT",
