@@ -1,17 +1,20 @@
 {
-  "name": "tnqbao-internship-practice-js",
+  "name": "bmi-calculator",
   "version": "1.0.0",
+  "description": "BMI Calculator using MVC and Strategy Pattern",
+  "main": "src/main.js",
+  "scripts": {
+    "start": "parcel src/index.html",
+    "dev": "parcel src/index.html",
+    "build": "parcel build src/index.html",
+    "lint": "eslint . --ext .js"
+  },
   "license": "MIT",
   "type": "module",
-  "scripts": {
-    "dev": "live-server .",
-    "lint": "eslint . --ext .js",
-    "build": "echo 'Không cần build: chỉ cần serve file tĩnh'"
-  },
   "devDependencies": {
-    "@eslint/js": "^9.31.0",
-    "eslint": "^9.31.0",
+    "@eslint/js": "^9.30.1",
+    "eslint": "^9.30.1",
     "globals": "^16.3.0",
-    "live-server": "^1.2.2"
+    "parcel": "^2.11.0"
   }
 }

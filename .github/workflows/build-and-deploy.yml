@@ -80,3 +80,6 @@ jobs:
       - name: Apply manifests to Kubernetes
         working-directory: ./deploy/k8s
         run: ./apply.sh
+
+      - name: Check pod status
+        run: kubectl get pods -n agility-staging-env
