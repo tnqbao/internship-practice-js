@@ -2,7 +2,6 @@
   "name": "bmi-calculator",
   "version": "1.0.0",
   "description": "BMI Calculator using MVC and Strategy Pattern",
-  "main": "src/main.js",
   "scripts": {
     "start": "parcel index.html",
     "dev": "parcel index.html",
