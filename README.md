@@ -48,7 +48,7 @@ docker build -t agility-practice-js .
 docker run -p 8080:80 agility-practice-js
 ```
 
-Then open `localhost:8080` (or expose port 8080 in Codespaces).
+Then open `localhost:8080` (or expose port 8080 in localhost).
 
 ---
 
@@ -86,7 +86,10 @@ bmi-calculator/
 
 ---
 
+## Deployment Link:
+[https://practice-js.daudoo.com/](https://practice-js.daudoo.com/)
 
+---
 ## Contact
 
 If you have any questions or suggestions, feel free to reach out:
