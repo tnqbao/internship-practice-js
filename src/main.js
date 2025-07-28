@@ -25,5 +25,5 @@ function initializePage() {
     const informationView = createInformation();
     infoSection.appendChild(informationView);
 }
-
 document.addEventListener('DOMContentLoaded', initializePage);
+
