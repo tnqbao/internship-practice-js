@@ -51,36 +51,19 @@ jobs:
           sudo tailscale up --authkey ${{ secrets.TAILSCALE_AUTH_KEY }}
           sleep 5
 
+      - name: Install sshpass
+        run: sudo apt-get update && sudo apt-get install -y sshpass
+
+      - name: Prepare staging directory
+        run: mkdir -p ./deploy/k8s
+
       - name: Download .env from server
-        uses: appleboy/ssh-action@v1.0.3
-        with:
-          host: ${{ secrets.SERVER_HOST }}
-          username: ${{ secrets.SERVER_USER }}
-          key: ${{ secrets.SSH_PRIVATE_KEY }}
-          script: |
-            # Create local directory if it doesn't exist
-            mkdir -p ./deploy/k8s
-          script_stop: true
+        run: |
+          sshpass -p "${{ secrets.SERVER_PASSWORD }}" scp -o StrictHostKeyChecking=no ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_HOST }}:/home/tnqbao/.enviroment/practice-js/.env ./deploy/k8s/.env
 
-      - name: Copy .env file from server
-        uses: appleboy/scp-action@v0.1.7
-        with:
-          host: ${{ secrets.SERVER_HOST }}
-          username: ${{ secrets.SERVER_USER }}
-          key: ${{ secrets.SSH_PRIVATE_KEY }}
-          source: "/home/tnqbao/.enviroment/practice-js/.env"
-          target: "./deploy/k8s/"
-          strip_components: 4
-
-      - name: Copy kubeconfig from server
-        uses: appleboy/scp-action@v0.1.7
-        with:
-          host: ${{ secrets.SERVER_HOST }}
-          username: ${{ secrets.SERVER_USER }}
-          key: ${{ secrets.SSH_PRIVATE_KEY }}
-          source: "~/.secret/k8s/kubeconfig.yaml"
-          target: "./deploy/k8s/"
-          strip_components: 3
+      - name: Download kubeconfig.yaml from server
+        run: |
+          sshpass -p "${{ secrets.SERVER_PASSWORD }}" scp -o StrictHostKeyChecking=no ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_HOST }}:~/.secret/k8s/kubeconfig.yaml ./deploy/k8s/kubeconfig.yaml
 
       - name: Set KUBECONFIG environment variable
         run: echo "KUBECONFIG=$GITHUB_WORKSPACE/deploy/k8s/kubeconfig.yaml" >> $GITHUB_ENV
@@ -89,8 +72,7 @@ jobs:
         run: kubectl get nodes
 
       - name: Make scripts executable
-        run: |
-          chmod +x ./deploy/k8s/apply.sh
+        run: chmod +x ./deploy/k8s/apply.sh
 
       - name: Apply manifests to Kubernetes
         working-directory: ./deploy/k8s
