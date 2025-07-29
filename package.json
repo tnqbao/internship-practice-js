@@ -15,5 +15,8 @@
     "eslint": "^9.30.1",
     "globals": "^16.3.0",
     "parcel": "^2.11.0"
+  },
+  "dependencies": {
+    "scss": "^0.2.4"
   }
 }
