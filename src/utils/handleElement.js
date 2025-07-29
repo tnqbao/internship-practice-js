@@ -1,4 +1,4 @@
-export function handleElement(element, wrapperTag = 'div', options = {}) {
+export function wrapElement(element, wrapperTag = 'div', options = {}) {
     if (!element || !(element instanceof HTMLElement)) {
         throw new Error('First parameter must be a valid HTMLElement');
     }
@@ -8,14 +8,12 @@ export function handleElement(element, wrapperTag = 'div', options = {}) {
     if (options.className) {
         if (Array.isArray(options.className)) {
             wrapper.classList.add(...options.className);
-        } else {
-            wrapper.classList.add(options.className);
+        } else if (typeof options.className === 'string') {
+            wrapper.classList.add(...options.className.trim().split(/\s+/));
         }
     }
 
-    if (options.id) {
-        wrapper.id = options.id;
-    }
+    if (options.id) wrapper.id = options.id;
 
     if (options.attributes && typeof options.attributes === 'object') {
         Object.entries(options.attributes).forEach(([key, value]) => {
@@ -43,20 +41,23 @@ export function handleElement(element, wrapperTag = 'div', options = {}) {
         });
     }
 
-    if (options.textContent) {
-        wrapper.textContent = options.textContent;
-    }
+    if (options.textContent) wrapper.textContent = options.textContent;
 
     const parent = element.parentNode;
-
-    if (parent) {
-        parent.insertBefore(wrapper, element);
-    }
+    if (parent) parent.insertBefore(wrapper, element);
 
     if (options.prepend) {
         wrapper.insertBefore(element, wrapper.firstChild);
     } else {
         wrapper.appendChild(element);
+    }
+
+    if (options.children && Array.isArray(options.children)) {
+        options.children.forEach(child => {
+            if (child instanceof HTMLElement) {
+                wrapper.appendChild(child);
+            }
+        });
     }
 
     if (options.innerHTML) {
@@ -78,14 +79,12 @@ export function customizeElement(element, options = {}) {
     if (options.className) {
         if (Array.isArray(options.className)) {
             element.classList.add(...options.className);
-        } else {
-            element.classList.add(options.className);
+        } else if (typeof options.className === 'string') {
+            element.classList.add(...options.className.trim().split(/\s+/));
         }
     }
 
-    if (options.id) {
-        element.id = options.id;
-    }
+    if (options.id) element.id = options.id;
 
     if (options.attributes && typeof options.attributes === 'object') {
         Object.entries(options.attributes).forEach(([key, value]) => {
@@ -113,12 +112,16 @@ export function customizeElement(element, options = {}) {
         });
     }
 
-    if (options.textContent) {
-        element.textContent = options.textContent;
-    }
+    if (options.textContent) element.textContent = options.textContent;
 
-    if (options.innerHTML) {
-        element.innerHTML = options.innerHTML;
+    if (options.innerHTML) element.innerHTML = options.innerHTML;
+
+    if (options.children && Array.isArray(options.children)) {
+        options.children.forEach(child => {
+            if (child instanceof HTMLElement) {
+                element.appendChild(child);
+            }
+        });
     }
 
     return element;
