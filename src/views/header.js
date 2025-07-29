@@ -1,18 +1,15 @@
 import { createLogo } from './components/logo.js';
-import {createNavbar} from "./components/navnar.js";
-import {createSearchButton} from "./components/search-button.js";
+import { createRepositoryButton} from "./components/github-button.js";
 
 export function createHeader() {
     const header = document.createElement('header');
     header.className = 'header';
 
     const logo = createLogo();
-    const navbar = createNavbar();
-    const searchButton = createSearchButton();
+    const repositoryButton = createRepositoryButton();
 
     header.appendChild(logo);
-    header.appendChild(navbar);
-    header.appendChild(searchButton);
+    header.appendChild(repositoryButton);
 
     return header;
 }
