@@ -78,5 +78,9 @@ jobs:
         working-directory: ./deploy/k8s
         run: ./apply.sh
 
+      - name: Restart pods
+        run: kubectl rollout restart deployment/agility-practice-js -n agility-staging-env
+
       - name: Check pod status
         run: kubectl get pods -n agility-staging-env
+
