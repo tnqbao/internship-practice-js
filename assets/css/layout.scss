@@ -24,6 +24,26 @@
   &-none {
     flex: none;
   }
+
+  &-grow {
+    flex-grow: 1;
+  }
+
+  &-1 {
+    flex-basis: 100%;
+  }
+
+  &-2 {
+    flex-basis: 50%;
+  }
+
+  &-3 {
+    flex-basis: 33.33%;
+  }
+
+  &-4 {
+    flex-basis: 25%;
+  }
 }
 
 .flex-center {
@@ -68,25 +88,25 @@
 }
 
 .item {
-    &-center {
-        align-self: center;
-    }
+  &-center {
+    align-self: center;
+  }
 
-    &-start {
-        align-self: flex-start;
-    }
+  &-start {
+    align-self: flex-start;
+  }
 
-    &-end {
-        align-self: flex-end;
-    }
+  &-end {
+    align-self: flex-end;
+  }
 
-    &-stretch {
-        align-self: stretch;
-    }
+  &-stretch {
+    align-self: stretch;
+  }
 
-    &-baseline {
-        align-self: baseline;
-    }
+  &-baseline {
+    align-self: baseline;
+  }
 }
 
 .self {

@@ -1,0 +1,166 @@
+:root {
+  --spacing-xs: 4px;
+  --spacing-sm: 8px;
+  --spacing-md: 16px;
+  --spacing-lg: 24px;
+}
+
+@mixin spacing-directions($prefix, $prop) {
+  &-0 {
+    #{$prop}: 0;
+  }
+
+  &-xs {
+    #{$prop}: var(--spacing-xs);
+  }
+
+  &-sm {
+    #{$prop}: var(--spacing-sm);
+  }
+
+  &-md {
+    #{$prop}: var(--spacing-md);
+  }
+
+  &-lg {
+    #{$prop}: var(--spacing-lg);
+  }
+
+  &-l-0 {
+    #{$prop}-left: 0;
+  }
+
+  &-l-xs {
+    #{$prop}-left: var(--spacing-xs);
+  }
+
+  &-l-sm {
+    #{$prop}-left: var(--spacing-sm);
+  }
+
+  &-l-md {
+    #{$prop}-left: var(--spacing-md);
+  }
+
+  &-l-lg {
+    #{$prop}-left: var(--spacing-lg);
+  }
+
+  &-r-0 {
+    #{$prop}-right: 0;
+  }
+
+  &-r-xs {
+    #{$prop}-right: var(--spacing-xs);
+  }
+
+  &-r-sm {
+    #{$prop}-right: var(--spacing-sm);
+  }
+
+  &-r-md {
+    #{$prop}-right: var(--spacing-md);
+  }
+
+  &-r-lg {
+    #{$prop}-right: var(--spacing-lg);
+  }
+
+  &-t-0 {
+    #{$prop}-top: 0;
+  }
+
+  &-t-xs {
+    #{$prop}-top: var(--spacing-xs);
+  }
+
+  &-t-sm {
+    #{$prop}-top: var(--spacing-sm);
+  }
+
+  &-t-md {
+    #{$prop}-top: var(--spacing-md);
+  }
+
+  &-t-lg {
+    #{$prop}-top: var(--spacing-lg);
+  }
+
+  &-b-0 {
+    #{$prop}-bottom: 0;
+  }
+
+  &-b-xs {
+    #{$prop}-bottom: var(--spacing-xs);
+  }
+
+  &-b-sm {
+    #{$prop}-bottom: var(--spacing-sm);
+  }
+
+  &-b-md {
+    #{$prop}-bottom: var(--spacing-md);
+  }
+
+  &-b-lg {
+    #{$prop}-bottom: var(--spacing-lg);
+  }
+
+  &-x-0 {
+    #{$prop}-left: 0;
+    #{$prop}-right: 0;
+  }
+
+  &-x-xs {
+    #{$prop}-left: var(--spacing-xs);
+    #{$prop}-right: var(--spacing-xs);
+  }
+
+  &-x-sm {
+    #{$prop}-left: var(--spacing-sm);
+    #{$prop}-right: var(--spacing-sm);
+  }
+
+  &-x-md {
+    #{$prop}-left: var(--spacing-md);
+    #{$prop}-right: var(--spacing-md);
+  }
+
+  &-x-lg {
+    #{$prop}-left: var(--spacing-lg);
+    #{$prop}-right: var(--spacing-lg);
+  }
+
+  &-y-0 {
+    #{$prop}-top: 0;
+    #{$prop}-bottom: 0;
+  }
+
+  &-y-xs {
+    #{$prop}-top: var(--spacing-xs);
+    #{$prop}-bottom: var(--spacing-xs);
+  }
+
+  &-y-sm {
+    #{$prop}-top: var(--spacing-sm);
+    #{$prop}-bottom: var(--spacing-sm);
+  }
+
+  &-y-md {
+    #{$prop}-top: var(--spacing-md);
+    #{$prop}-bottom: var(--spacing-md);
+  }
+
+  &-y-lg {
+    #{$prop}-top: var(--spacing-lg);
+    #{$prop}-bottom: var(--spacing-lg);
+  }
+}
+
+.p {
+  @include spacing-directions("p", padding);
+}
+
+.m {
+  @include spacing-directions("m", margin);
+}
