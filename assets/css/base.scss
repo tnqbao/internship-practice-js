@@ -1,0 +1,133 @@
+:root {
+  --bg-primary: #0d6efd;
+  --bg-secondary: #ffffff;
+  --bg-surface: var(--bg-secondary);
+
+  --text-primary: #000000;
+  --text-secondary: #ffffff;
+  --text-muted: #6c757d;
+  --text-invert: var(--text-secondary);
+
+  --color-border: #1918251a;
+  --color-shadow: rgba(0, 0, 0, 0.1);
+
+  --font-family-primary: 'Inter', sans-serif;
+
+  --font-size-h1: 1.938rem;
+  --font-size-h2: 1.75rem;
+  --font-size-h3: 1.25rem;
+  --font-size-content: 1rem;
+  --font-size-button: var(--font-size-content);
+  --font-size-label: var(--font-size-content);
+
+  --font-weight-title: 700;
+  --font-weight-content: 400;
+
+  --line-height-title: 2;
+  --line-height-content: 1.5;
+
+  --spacing-xs: 0.5rem;
+  --spacing-sm: 1rem;
+  --spacing-md: 2rem;
+  --spacing-lg: 4rem;
+
+  --label-spacing-inline: 20%;
+  --label-spacing-none: 0;
+
+  --radius-xxl: 0.75rem;
+}
+
+body {
+  font-family: var(--font-family-primary), sans-serif;
+  color: var(--text-primary);
+  background-color: var(--bg-secondary);
+}
+
+%heading-base {
+  line-height: var(--line-height-title);
+  font-weight: var(--font-weight-title);
+  font-family: var(--font-family-primary), sans-serif;
+  color: var(--text-primary);
+}
+
+h1 {
+  @extend %heading-base;
+  font-size: var(--font-size-h1);
+}
+
+h2 {
+  @extend %heading-base;
+  font-size: var(--font-size-h2);
+}
+
+h3 {
+  @extend %heading-base;
+  font-size: var(--font-size-h3);
+}
+
+h4,
+h5,
+h6 {
+  @extend %heading-base;
+}
+
+p {
+  font-size: var(--font-size-content);
+  font-weight: var(--font-weight-content);
+  color: var(--text-muted);
+  line-height: var(--line-height-content);
+  font-family: var(--font-family-primary), sans-serif;
+}
+
+span {
+  font-size: var(--font-size-label);
+  font-weight: var(--font-weight-title);
+  color: var(--text-secondary);
+}
+
+ul {
+  list-style: none;
+}
+
+button {
+  background: var(--bg-primary);
+  font-size: var(--font-size-button);
+  font-weight: var(--font-weight-title);
+  line-height: var(--line-height-title);
+  color: var(--text-invert);
+  border-radius: var(--radius-xxl);
+  border: 1px solid transparent;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+  transition: all 0.2s ease-in-out;
+
+  &:hover {
+    box-shadow: 0 2rem 0.5rem var(--color-shadow);
+    transform: scale(1.05);
+  }
+}
+
+@media (min-width: 768px) {
+  :root {
+    --font-size-h1: 2.125rem;
+  }
+
+  body {
+    padding: 0 var(--spacing-lg);
+    max-width: 720px;
+    margin: 0 auto;
+  }
+}
+
+@media (min-width: 1080px) {
+  :root {
+    --font-size-h1: 2.5rem;
+  }
+
+  body {
+    padding: 0 6rem;
+    max-width: 1220px;
+  }
+}
