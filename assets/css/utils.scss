@@ -164,3 +164,35 @@
 .m {
   @include spacing-directions("m", margin);
 }
+
+.color{
+    &-primary {
+        color: var(--text-primary);
+    }
+
+    &-secondary {
+        color: var(--text-secondary);
+    }
+}
+
+.bg {
+    &-primary {
+        background-color: var(--bg-primary);
+    }
+
+    &-secondary {
+        background-color: var(--bg-secondary);
+    }
+}
+
+.font {
+    &-primary {
+        font-family: var(--font-family-primary), sans-serif;
+    }
+
+    &-bold {
+        font-weight: var(--font-weight-title);
+    }
+
+
+}
