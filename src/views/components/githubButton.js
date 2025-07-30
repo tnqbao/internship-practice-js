@@ -16,7 +16,6 @@ export function createRepositoryButton() {
     return customizeElement(git, {
         id: 'github-repo-button',
         events: {
-            click: () => console.log('GitHub button clicked'),
             mouseenter: (e) => e.target.style.transform = 'scale(1.1)',
             mouseleave: (e) => e.target.style.transform = 'scale(1)'
         },

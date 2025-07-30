@@ -22,7 +22,8 @@ export function createLogo() {
         },
         dataset: {
             component: 'logo'
-        }
+        },
+        className: ['logo','p-2']
     });
 
 }
