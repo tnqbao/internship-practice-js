@@ -50,6 +50,12 @@ body {
   color: var(--text-primary);
 }
 
+.container {
+  padding: 0;
+  margin: auto;
+  max-width: 100%;
+}
+
 h1 {
   @extend %heading-base;
   font-size: var(--font-size-h1);
@@ -115,9 +121,12 @@ button {
   }
 
   body {
-    padding: 0 var(--spacing-lg);
+    margin: auto;
+  }
+
+  .container {
+    padding: 0 var(--spacing-md);
     max-width: 720px;
-    margin: 0 auto;
   }
 }
 
@@ -126,8 +135,8 @@ button {
     --font-size-h1: 2.5rem;
   }
 
-  body {
-    padding: 0 6rem;
+  .container {
+    padding: 0 var(--spacing-lg);
     max-width: 1220px;
   }
 }

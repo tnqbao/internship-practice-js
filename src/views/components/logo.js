@@ -1,3 +1,5 @@
+import {customizeElement} from "../../utils/handleElement.js";
+
 export function createLogo() {
 
     const logo = document.createElement('div');
@@ -13,5 +15,14 @@ export function createLogo() {
         </svg> 
     `;
 
-    return logo;
+    return customizeElement(logo, {
+        id: 'logo',
+        events: {
+            click: () => window.location.href = '/'
+        },
+        dataset: {
+            component: 'logo'
+        }
+    });
+
 }

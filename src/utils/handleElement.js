@@ -13,7 +13,11 @@ export function wrapElement(element, wrapperTag = 'div', options = {}) {
         }
     }
 
+
     if (options.id) wrapper.id = options.id;
+    if (options.href) element.href = options.href;
+    if (options.target) element.target = options.target;
+    if (options.rel) element.rel = options.rel;
 
     if (options.attributes && typeof options.attributes === 'object') {
         Object.entries(options.attributes).forEach(([key, value]) => {
@@ -85,6 +89,10 @@ export function customizeElement(element, options = {}) {
     }
 
     if (options.id) element.id = options.id;
+
+    if (options.href) element.href = options.href;
+    if (options.target) element.target = options.target;
+    if (options.rel) element.rel = options.rel;
 
     if (options.attributes && typeof options.attributes === 'object') {
         Object.entries(options.attributes).forEach(([key, value]) => {
