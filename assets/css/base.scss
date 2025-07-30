@@ -1,12 +1,11 @@
 :root {
   --bg-primary: #0d6efd;
   --bg-secondary: #ffffff;
-  --bg-surface: var(--bg-secondary);
+  --bg-tertiary: #e8f1ff;
 
   --text-primary: #000000;
   --text-secondary: #ffffff;
-  --text-muted: #6c757d;
-  --text-invert: var(--text-secondary);
+  --text-tertiary: #f2f2f2;
 
   --color-border: #1918251a;
   --color-shadow: rgba(0, 0, 0, 0.1);
@@ -35,12 +34,18 @@
   --label-spacing-none: 0;
 
   --radius-xxl: 0.75rem;
+  --radius-xl: 0.5rem;
+  --radius-lg: 0.375rem;
+  --radius-md: 0.25rem;
+  --radius-sm: 0.125rem;
+  --radius-xs: 0.0625rem;
+  --radius-none: 0;
 }
 
 body {
   font-family: var(--font-family-primary), sans-serif;
   color: var(--text-primary);
-  background-color: var(--bg-secondary);
+  background-color: var(--bg-tertiary);
 }
 
 %heading-base {
@@ -80,7 +85,7 @@ h6 {
 p {
   font-size: var(--font-size-content);
   font-weight: var(--font-weight-content);
-  color: var(--text-muted);
+  color: var(--text-tertiary);
   line-height: var(--line-height-content);
   font-family: var(--font-family-primary), sans-serif;
 }
@@ -88,7 +93,6 @@ p {
 span {
   font-size: var(--font-size-label);
   font-weight: var(--font-weight-title);
-  color: var(--text-secondary);
 }
 
 ul {
@@ -108,11 +112,6 @@ button {
   align-items: center;
   gap: var(--spacing-xs);
   transition: all 0.2s ease-in-out;
-
-  &:hover {
-    box-shadow: 0 2rem 0.5rem var(--color-shadow);
-    transform: scale(1.05);
-  }
 }
 
 @media (min-width: 768px) {

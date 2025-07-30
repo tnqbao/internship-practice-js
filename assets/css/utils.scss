@@ -183,6 +183,10 @@
     &-secondary {
         background-color: var(--bg-secondary);
     }
+
+    &-tertiary {
+        background-color: var(--bg-tertiary);
+    }
 }
 
 .font {
@@ -193,6 +197,48 @@
     &-bold {
         font-weight: var(--font-weight-title);
     }
+}
 
+.rounded {
+    &-xs {
+        border-radius: var(--radius-xs);
+    }
+    &-sm {
+        border-radius: var(--radius-sm);
+    }
+    &-md {
+        border-radius: var(--radius-md);
+    }
+    &-lg {
+        border-radius: var(--radius-lg);
+    }
+    &-xl {
+        border-radius: var(--radius-xl);
+    }
+    &-xxl {
+        border-radius: var(--radius-xxl);
+    }
+    &-none {
+        border-radius: 0;
+    }
 
+   &-1 {
+        border-radius: 1rem;
+    }
+
+    &-2 {
+        border-radius: 2rem;
+    }
+    &-3 {
+        border-radius: 3rem;
+    }
+    &-4 {
+        border-radius: 4rem;
+    }
+    &-5 {
+        border-radius: 5rem;
+    }
+    &-6 {
+        border-radius: 6rem;
+    }
 }

@@ -1,0 +1,44 @@
+.gender-toggle button {
+  border-radius: 6rem;
+  background-color: var(--bg-tertiary);
+}
+
+.gender-toggle .active {
+  background-color: var(--bg-secondary);
+}
+
+.gender-toggle span {
+  font-size: var(--font-size-h3);
+  color: var(--text-primary);
+}
+
+#form-view {
+  width: 40%;
+  border-radius: var(--radius-xxl);
+  border: 1px solid transparent;
+  box-shadow: var(--shadow-xs);
+}
+
+
+.bmi-form-wrapper {
+  border: 2px solid #dee2e6;
+  border-radius: 12px;
+  background-color: #ffffff;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  transition: box-shadow 0.3s ease;
+}
+
+.bmi-form-wrapper:hover {
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+}
+
+.bmi-form-wrapper input {
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.bmi-form-wrapper input:focus {
+  border-color: #0d6efd;
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(13, 110, 253, 0.25);
+}
+
