@@ -1,4 +1,4 @@
-import {createHeader} from './views/header.js';
+import { createHeader } from './views/header.js';
 import { createFooter } from './views/footer.js';
 import { createFormView } from './views/formView.js';
 import { createResultView } from './views/resultView.js';
@@ -6,24 +6,25 @@ import { createInformation } from './views/information.js';
 
 function initializePage() {
     const headerElement = document.getElementById('header');
-    const header = createHeader();
-    headerElement.appendChild(header);
+    headerElement.appendChild(createHeader());
 
     const footerElement = document.getElementById('footer');
-    const footer = createFooter();
-    footerElement.appendChild(footer);
+    footerElement.appendChild(createFooter());
 
     const formSection = document.getElementById('form-section');
-    const formView = createFormView();
-    formSection.appendChild(formView);
+    formSection.appendChild(createFormView());
 
     const resultSection = document.getElementById('result-section');
-    const resultView = createResultView();
-    resultSection.appendChild(resultView);
+    resultSection.appendChild(createResultView());
 
     const infoSection = document.getElementById('info-section');
-    const informationView = createInformation();
-    infoSection.appendChild(informationView);
+    infoSection.appendChild(createInformation());
+
+    const bmiContent = document.getElementById('bmi-content');
+    bmiContent.classList.add('flex', 'flex-col', 'items-center', 'justify-center');
+
+    const mainContent = document.getElementById('main-content');
+    mainContent.classList.add('flex', 'items-center', 'justify-center', 'flex-wrap', 'container','m-t-lg');
 }
 
 document.addEventListener('DOMContentLoaded', initializePage);
