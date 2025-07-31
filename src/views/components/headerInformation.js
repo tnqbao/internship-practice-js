@@ -74,7 +74,7 @@ export function createHeaderInformation() {
     });
 
     const headerInfo = customizeElement(document.createElement('div'), {
-        className: ['header-information', 'flex', 'container', 'w-full', 'flex-1', 'justify-between', 'items-center'],
+        className: ['header-information', 'flex', 'w-full', 'flex-1', 'justify-between', 'items-center', 'container'],
         id: 'header-information',
         children: [author, referencesInformation]
     });
