@@ -4,6 +4,8 @@
 
 #bmi-content {
   display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
   width: 55%;
 }
 
@@ -57,3 +59,6 @@
   margin-top: 0.5rem;
 }
 
+.information-view p, i{
+  width: 100%;
+}
