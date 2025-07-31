@@ -78,7 +78,7 @@ export function customizeElement(element, options = {}) {
     const directProps = [
         'id', 'step', 'type', 'value', 'name', 'src', 'alt', 'title',
         'disabled', 'checked', 'required', 'multiple', 'min', 'max',
-        'href', 'target', 'rel', 'placeholder','htmlFor'
+        'href', 'target', 'rel', 'placeholder','htmlFor','d', 'stroke', 'strokeWidth', 'fill', 'viewBox', 'width', 'height', 'xmlns','innerText'
     ];
     directProps.forEach(prop => {
         if (options[prop] !== undefined) element[prop] = options[prop];

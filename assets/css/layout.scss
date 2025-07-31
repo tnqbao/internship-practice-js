@@ -13,10 +13,6 @@
     flex-wrap: wrap;
   }
 
-  &-1 {
-    flex: 1;
-  }
-
   &-auto {
     flex: auto;
   }
@@ -183,4 +179,30 @@
   &-lg {
     gap: var(--spacing-lg);
   }
+}
+
+.w {
+  &-full {
+    width: 100%;
+  }
+
+  &-auto {
+    width: auto;
+  }
+
+  &-half {
+    width: 50%;
+  }
+
+  &-third {
+    width: 33.33%;
+  }
+
+  &-quarter {
+    width: 25%;
+  }
+
+    &-fit {
+        width: fit-content;
+    }
 }

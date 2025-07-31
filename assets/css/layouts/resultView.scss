@@ -1,4 +1,59 @@
+#result-section {
+  width: 100%;
+}
+
 #bmi-content {
   display: flex;
-  width: 60%;
+  width: 55%;
 }
+
+.bmi-result-line {
+  display: flex;
+  flex-direction: column;
+  width: 12.5%;
+}
+
+.bmi-result-line span {
+  width: 100%;
+  height: 6px;
+}
+
+#grade-3-lean span{
+  background-color: #fe0100;
+}
+
+#grade-2-lean span {
+  background-color: #fe9900;
+}
+
+#grade-1-lean span {
+  background-color: #ffbc7c;
+}
+
+#grade-normal span {
+  background-color: #01b203;
+}
+
+#grade-pre-obese span {
+  background-color: #cc99fe;
+}
+
+#grade-1-obese span {
+  background-color: #993365;
+}
+
+#grade-2-obese span {
+  background-color: #81017f;
+}
+
+#grade-3-obese span {
+  background-color: #343399;
+}
+
+.bmi-result-line .bmi-arrow {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin-top: 0.5rem;
+}
+

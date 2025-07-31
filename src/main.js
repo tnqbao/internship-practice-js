@@ -24,7 +24,7 @@ function initializePage() {
     bmiContent.classList.add('flex', 'flex-col', 'items-center', 'justify-center');
 
     const mainContent = document.getElementById('main-content');
-    mainContent.classList.add('flex', 'items-center', 'justify-center', 'flex-wrap', 'container','m-t-lg');
+    mainContent.classList.add('flex', 'items-start', 'justify-center', 'flex-wrap', 'container','m-t-lg', 'gap-4');
 }
 
 document.addEventListener('DOMContentLoaded', initializePage);
