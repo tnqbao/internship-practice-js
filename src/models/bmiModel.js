@@ -1,5 +1,8 @@
-class BmiModel {
-    constructor(height, weight,age,type = 'metric') {
+import bmiRanges from '../config/bmiRanges.json';
+import validation from '../config/validation.json';
+
+export class BmiModel {
+    constructor({ height, weight, age, type = 'metric' }) {
         this.height = height;
         this.weight = weight;
         this.age = age;
@@ -9,63 +12,36 @@ class BmiModel {
     calculateBMI() {
         if (this.type === 'metric') {
             return this.weight / ((this.height / 100) ** 2);
-        } else if (this.type === 'imperial') {
-            return (this.weight / (this.height ** 2)) * 703;
-        } else {
-            throw new Error('Invalid type');
         }
+        return (this.weight / (this.height ** 2)) * 703;
     }
 
     getBMICategory() {
         const bmi = this.calculateBMI();
-        if (bmi < 16) {
-            return 'Severe thinness';
-        } else if (bmi >= 16 && bmi < 17) {
-            return 'Thinness';
-        } else if (bmi >= 17 && bmi < 18.5) {
-            return 'Underweight';
-        } else if (bmi >= 18.5 && bmi < 25) {
-            return 'Normal';
-        } else if (bmi >= 25 && bmi < 30) {
-            return 'Pre-obesity';
-        } else if (bmi >= 30 && bmi < 35) {
-            return 'Class 1 obesity';
-        } else if (bmi >= 35 && bmi < 40) {
-            return 'Class 2 obesity';
-        } else {
-            return 'Class 3 obesity';
-        }
+        const matched = bmiRanges.find(r => bmi >= r.min && bmi < r.max);
+
+        return matched
+            ? { label: matched.label, color: matched.color, id: matched.id }
+            : { label: 'Unknown', color: '#ccc', id: null };
     }
 
-    getMinNormalWeight() {
-        if (this.type === 'metric') {
-            const heightInMeters = this.height / 100;
-            return 18.5 * (heightInMeters ** 2);
-        } else if (this.type === 'imperial') {
-            return 18.5 * ((this.height ** 2) / 703);
-        } else {
-            throw new Error('Invalid type');
-        }
-    }
-
-    getMaxNormalWeight() {
-        if (this.type === 'metric') {
-            const heightInMeters = this.height / 100;
-            return 24.9 * (heightInMeters ** 2);
-        } else if (this.type === 'imperial') {
-            return 24.9 * ((this.height ** 2) / 703);
-        } else {
-            throw new Error('Invalid type');
-        }
+    isValid() {
+        const rule = validation[this.type];
+        return (
+            this.height >= rule.height.min &&
+            this.height <= rule.height.max &&
+            this.weight >= rule.weight.min &&
+            this.weight <= rule.weight.max
+        );
     }
 
     getIdealWeightRange() {
-        return {
-            min: this.getMinNormalWeight(),
-            max: this.getMaxNormalWeight()
-        };
+        const min = 18.5;
+        const max = 24.9;
+        const h = this.type === 'metric' ? this.height / 100 : this.height;
+        const result = this.type === 'metric'
+            ? [min * h * h, max * h * h]
+            : [min * h * h / 703, max * h * h / 703];
+        return result;
     }
-
 }
-
-export default BmiModel;
