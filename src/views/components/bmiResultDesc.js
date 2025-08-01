@@ -10,7 +10,7 @@ export function createBMIResultDesc() {
                 Assessment:
                 </strong> 
             </span>
-            <span id='bmi-result-assessment' class='color-primary'> Normal </span>
+            <span id='bmi-result-desc-content' class='color-primary'> Normal </span>
         `,
     });
 

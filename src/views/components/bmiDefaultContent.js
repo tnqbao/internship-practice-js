@@ -12,8 +12,8 @@ export function createBMIDefault() {
     });
 
     return customizeElement(document.createElement('div'), {
-        className: ['bmi-result-desc', 'flex', 'flex-col','flex-wrap','items-center', 'justify-between', 'w-full','gap-4'],
-        id: 'bmi-result-desc',
+        className: ['bmi-default-content', 'flex', 'flex-col','flex-wrap','items-center', 'justify-between', 'w-full','gap-4'],
+        id: 'bmi-default-content',
         children: [
             textDefaultContent,
             noteTextContent

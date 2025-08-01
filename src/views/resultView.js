@@ -1,38 +1,41 @@
-import {customizeElement} from "../utils/handleElement.js";
-import {createBmiResultPath} from "./components/bmiResultPath.js";
-import {createBMIResultIdeal} from "./components/bmiResultIdeal.js";
-import {createBMIResultDesc} from "./components/bmiResultDesc.js";
-import {createBMIDefault} from "./components/bmiDefaultContent.js";
+import { customizeElement } from "../utils/handleElement.js";
+import { createBmiResultPath } from "./components/bmiResultPath.js";
+import { createBMIResultIdeal } from "./components/bmiResultIdeal.js";
+import { createBMIResultDesc } from "./components/bmiResultDesc.js";
+import { createBMIDefault } from "./components/bmiDefaultContent.js";
 
 export function createResultView() {
     const resultTitle = customizeElement(document.createElement('h2'), {
-        className: ['flex','flex-center', 'flex-1','mb-4'],
+        className: ['text-center', 'mb-4', 'text-xl', 'font-bold', 'color-primary'],
         textContent: 'Your BMI Result',
-    })
-
-    const resultNumber = customizeElement(document.createElement('h2'), {
-        className: ['flex', 'flex-start','text-primary', 'hidden'],
-        id: 'result-number',
-        innerHTML: `
-            <h2 class="text-secondary">Your BMI is: </h2>
-            <h2 class="text-primary" id="bmi-value"> 0 </h2>
-        `
     });
 
-    const resulPaths = createBmiResultPath();
-    const bmiResultIdeal = createBMIResultIdeal();
-    const bmiResultDesc = createBMIResultDesc();
-    const bmiDefaultContent = createBMIDefault();
+    const resultNumber = customizeElement(document.createElement('div'), {
+        className: ['flex', 'flex-col', 'items-center', 'hidden'],
+        id: 'result-number',
+        children: [
+            customizeElement(document.createElement('span'), {
+                className: ['text-secondary'],
+                textContent: 'Your BMI is:',
+            }),
+            customizeElement(document.createElement('span'), {
+                id: 'bmi-value',
+                className: ['text-primary', 'text-xl'],
+                textContent: '0',
+            })
+        ]
+    });
+
     return customizeElement(document.createElement('div'), {
-        className: ['result-view', 'flex','flex-col', 'flex-wrap','items-center', 'justify-center', 'bg-secondary','w-full','rounded-xl','p-lg','gap-4'],
+        className: ['result-view', 'flex', 'flex-col', 'flex-wrap', 'items-center', 'justify-center', 'bg-secondary', 'w-full', 'rounded-xl', 'p-lg', 'gap-4'],
         id: 'result-view',
         children: [
             resultTitle,
             resultNumber,
-            resulPaths,
-            bmiResultIdeal,
-            bmiResultDesc,
-            bmiDefaultContent
+            createBmiResultPath(),
+            createBMIResultIdeal(),
+            createBMIResultDesc(),
+            createBMIDefault()
         ]
     });
 }

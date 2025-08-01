@@ -3,6 +3,7 @@ import { createFooter } from './views/footer.js';
 import { createFormView } from './views/formView.js';
 import { createResultView } from './views/resultView.js';
 import { createInformation } from './views/information.js';
+import { bmiController, setUnit } from './controllers/bmiController.js';
 
 function initializePage() {
     const headerElement = document.getElementById('header');
@@ -11,11 +12,19 @@ function initializePage() {
     const footerElement = document.getElementById('footer');
     footerElement.appendChild(createFooter());
 
-    const formSection = document.getElementById('form-section');
-    formSection.appendChild(createFormView());
-
+    const resultView = createResultView();
     const resultSection = document.getElementById('result-section');
-    resultSection.appendChild(createResultView());
+    resultSection.appendChild(resultView);
+
+    const handleBMICalculation = bmiController(resultView);
+
+    const handleUnitToggle = (newUnit) => {
+        setUnit(newUnit);
+        console.log(`Unit switched to: ${newUnit}`);
+    };
+
+    const formSection = document.getElementById('form-section');
+    formSection.appendChild(createFormView(handleBMICalculation, handleUnitToggle));
 
     const infoSection = document.getElementById('info-section');
     infoSection.appendChild(createInformation());
