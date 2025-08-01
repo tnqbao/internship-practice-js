@@ -1,0 +1,58 @@
+[
+  {
+    "id": "grade-3-lean",
+    "label": "Severe Thinness",
+    "min": 0,
+    "max": 16,
+    "color": "#fe0100"
+  },
+  {
+    "id": "grade-2-lean",
+    "label": "Moderate Thinness",
+    "min": 16,
+    "max": 17,
+    "color": "#fe9900"
+  },
+  {
+    "id": "grade-1-lean",
+    "label": "Mild Thinness",
+    "min": 17,
+    "max": 18.5,
+    "color": "#ffbc7c"
+  },
+  {
+    "id": "grade-normal",
+    "label": "Normal",
+    "min": 18.5,
+    "max": 25,
+    "color": "#01b203"
+  },
+  {
+    "id": "grade-pre-obese",
+    "label": "Pre-obese",
+    "min": 25,
+    "max": 30,
+    "color": "#cc99fe"
+  },
+  {
+    "id": "grade-1-obese",
+    "label": "Obese Class I",
+    "min": 30,
+    "max": 35,
+    "color": "#993365"
+  },
+  {
+    "id": "grade-2-obese",
+    "label": "Obese Class II",
+    "min": 35,
+    "max": 40,
+    "color": "#81017f"
+  },
+  {
+    "id": "grade-3-obese",
+    "label": "Obese Class III",
+    "min": 40,
+    "max": 100,
+    "color": "#343399"
+  }
+]
