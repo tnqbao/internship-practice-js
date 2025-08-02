@@ -14,10 +14,6 @@ export function createResultView(controller = null) {
             this.model = model;
         }
 
-        bindController(controller) {
-            this.controller = controller;
-        }
-
 
         _createResultTitle() {
             const resultTitle = customizeElement(document.createElement('h2'), {

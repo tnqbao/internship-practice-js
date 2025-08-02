@@ -54,7 +54,7 @@ export class BmiController {
 
     updateAge(dateOfBirth) {
         try {
-            this._model.age = this._calculateAge(dateOfBirth);
+            this._model.setAgeFromDateOfBirth(dateOfBirth);
         } catch (error) {
             this._handleValidationError('age', error.message);
         }
@@ -216,7 +216,12 @@ export class BmiController {
         const ageEl = document.getElementById('bmi-result-age');
         const idealWeightEl = document.getElementById('bmi-result-weight');
         const categoryEl = document.getElementById('bmi-result-desc-content');
-        if (ageEl) ageEl.textContent = `${data.age} Years`;
+
+        if (ageEl) {
+            const detailedAge = this._model.getDetailedAge();
+            ageEl.textContent = `${detailedAge.years} Years ${detailedAge.months} Months`;
+        }
+
         if (idealWeightEl) {
             idealWeightEl.textContent = `${data.idealRange.min} ${data.weightUnit} to ${data.idealRange.max} ${data.weightUnit}`;
         }
@@ -263,29 +268,6 @@ export class BmiController {
         });
     }
 
-    _calculateAge(dateOfBirth) {
-        if (!dateOfBirth) throw new Error('Date of birth is required');
-
-        const [day, month, year] = dateOfBirth.split('/').map(Number);
-        if (!day || !month || !year) {
-            throw new Error('Invalid date format. Use DD/MM/YYYY');
-        }
-
-        const today = new Date();
-        let age = today.getFullYear() - year;
-        const monthDiff = today.getMonth() - (month - 1);
-
-        if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < day)) {
-            age--;
-        }
-
-        if (age < 0 || age > 150) {
-            throw new Error('Invalid age calculated from date of birth');
-        }
-
-        return age;
-    }
-
     _handleValidationError(field, message) {
         console.warn(`Validation error for ${field}: ${message}`);
         this._views.forEach((view) => {
@@ -306,9 +288,5 @@ export class BmiController {
 
     _showErrorMessage(message) {
         alert(message);
-    }
-
-    get isDataComplete() {
-        return this._model.isDataComplete();
     }
 }

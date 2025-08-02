@@ -153,6 +153,51 @@ export class BmiModel {
         return value;
     }
 
+    calculateAgeFromDateOfBirth(dateOfBirth) {
+        if (!dateOfBirth) throw new Error('Date of birth is required');
+
+        const [day, month, year] = dateOfBirth.split('/').map(Number);
+        if (!day || !month || !year) {
+            throw new Error('Invalid date format. Use DD/MM/YYYY');
+        }
+
+        const today = new Date();
+        let age = today.getFullYear() - year;
+        let monthDiff = today.getMonth() - (month - 1);
+
+        if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < day)) {
+            age--;
+            monthDiff += 12;
+        }
+
+        // Adjust for days in month
+        if (today.getDate() < day) {
+            monthDiff--;
+            if (monthDiff < 0) {
+                monthDiff += 12;
+                age--;
+            }
+        }
+
+        if (age < 0 || age > 150) {
+            throw new Error('Invalid age calculated from date of birth');
+        }
+
+        return { years: age, months: monthDiff };
+    }
+
+    setAgeFromDateOfBirth(dateOfBirth) {
+        const ageData = this.calculateAgeFromDateOfBirth(dateOfBirth);
+        this.age = ageData.years; // Set years for BMI calculation
+        this._detailedAge = ageData; // Store detailed age info
+        this._notifyObservers('age', ageData.years, null);
+        return ageData;
+    }
+
+    getDetailedAge() {
+        return this._detailedAge || { years: this._age, months: 0 };
+    }
+
     toJSON() {
         return {
             height: this._height,
