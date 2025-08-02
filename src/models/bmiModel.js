@@ -12,7 +12,6 @@ export class BmiModel {
         this._observers = [];
     }
 
-    // Getters and Setters with validation
     get height() { return this._height; }
     set height(value) {
         const numValue = parseFloat(value);
@@ -95,7 +94,6 @@ export class BmiModel {
         return this._strategy.getIdealWeightRange(this._height);
     }
 
-    // Strategy delegation methods
     getWeightUnit() {
         return this._strategy.getWeightUnit();
     }
@@ -148,14 +146,13 @@ export class BmiModel {
 
     _convertWeight(value, fromUnit, toUnit) {
         if (fromUnit === 'metric' && toUnit === 'imperial') {
-            return value * 2.20462; // kg to lbs
+            return value * 2.20462;
         } else if (fromUnit === 'imperial' && toUnit === 'metric') {
-            return value / 2.20462; // lbs to kg
+            return value / 2.20462;
         }
         return value;
     }
 
-    // Utility methods
     toJSON() {
         return {
             height: this._height,
@@ -166,14 +163,5 @@ export class BmiModel {
             category: this.isDataComplete() ? this.getBMICategory() : null,
             isValid: this.isValid()
         };
-    }
-
-    clone() {
-        return new BmiModel({
-            height: this._height,
-            weight: this._weight,
-            age: this._age,
-            type: this._type
-        });
     }
 }

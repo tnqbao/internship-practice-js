@@ -1,12 +1,16 @@
 #result-section {
   width: 100%;
+  border: 2px solid #dee2e6;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  transition: box-shadow 0.3s ease;
 }
 
 #bmi-content {
   display: flex;
   flex-direction: column;
   flex-wrap: wrap;
-  width: 55%;
+  width: 100%;
 }
 
 .bmi-result-line {
@@ -17,7 +21,8 @@
 
 .bmi-result-line span {
   width: 100%;
-  height: 6px;
+  height: 8px;
+  border-radius: 1rem;
 }
 
 #range-severe-thinness span{
@@ -52,6 +57,11 @@
   background-color: #343399;
 }
 
+#red-note {
+    color: #fe0100;
+    font-weight: bold;
+}
+
 .bmi-result-line .bmi-arrow {
   width: 100%;
   display: flex;
@@ -61,4 +71,15 @@
 
 .information-view p, i{
   width: 100%;
+}
+
+@media (min-width: 1080px) {
+
+  #bmi-content {
+    width: 55%;
+  }
+
+  .bmi-result-line {
+    width: 12.5%;
+  }
 }

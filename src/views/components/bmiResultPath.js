@@ -11,7 +11,7 @@ function createBmiLine({ id, label }) {
         title: label,
         innerHTML: `
             <span class="bmi-result-line"> </span>
-            <div class="bmi-arrow range-${id}">
+            <div class="bmi-arrow range-${id} opacity-0">
                 <svg width="20" height="20" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
                     <g fill="none" fill-rule="evenodd">
                         <g fill="#000000" transform="translate(32, 42.666667)">

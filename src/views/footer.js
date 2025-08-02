@@ -1,4 +1,4 @@
-import {customizeElement} from "../utils/handleElement.js";
+import {customizeElement, wrapElement} from "../utils/handleElement.js";
 import {createLogo} from "./components/logo.js";
 
 export function createFooter(controller = null) {
@@ -56,8 +56,13 @@ export function createFooter(controller = null) {
 
         render() {
             const footerInfo = this._createFooterInfo();
+            const footerWrapper = wrapElement(footerInfo, 'div', {
+                className: ['footer-information-wrapper', 'flex', 'flex-col', 'items-center', 'justify-center', 'w-full', 'p-md'],
+                id: 'footer',
+                children: [footerInfo]
+            });
             this.isInitialized = true;
-            return footerInfo;
+            return footerWrapper;
         }
 
         isInitialized() {

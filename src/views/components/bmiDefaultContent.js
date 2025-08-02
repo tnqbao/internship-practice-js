@@ -3,12 +3,14 @@ import {customizeElement} from "../../utils/handleElement.js";
 export function createBMIDefault() {
     const textDefaultContent = customizeElement(document.createElement('p'), {
         className: ['text-secondary', 'text-sm', 'color-primary', 'text-center', 'w-full'],
-        innerText: 'Please enter your birthdate (to calculate age), weight, and gender above to see your BMI.',
+        innerHTML: `<span>Please enter your birthdate (to calculate age), weight, and gender above to see your BMI.</span>`,
     });
 
     const noteTextContent = customizeElement(document.createElement('p'), {
         className: ['text-secondary', 'text-sm', 'color-primary', 'text-center', 'w-full'],
-        innerText: 'Note: This tool is applicable for all ages except for pregnant'
+        innerHTML: `
+        <span id='red-note'> Note: </span>
+        <span>This tool is applicable for all ages except for pregnant </span>`
     });
 
     return customizeElement(document.createElement('div'), {

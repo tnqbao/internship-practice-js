@@ -14,8 +14,8 @@ class BMIApplication {
 
     async initialize() {
         try {
-            this._initializeViews();
             this._initializeController();
+            this._initializeViews();
             this._setupLayout();
             this._bindEvents();
 
@@ -58,7 +58,6 @@ class BMIApplication {
     }
 
     _createApplicationViews() {
-        // Main application views with controller integration
         this._createFormView();
         this._createResultView();
         this._createInformationView();
@@ -133,7 +132,6 @@ class BMIApplication {
     }
 
     _bindWindowEvents() {
-        // Handle window resize, beforeunload etc.
         window.addEventListener('beforeunload', () => {
             this._cleanup();
         });
@@ -146,40 +144,6 @@ class BMIApplication {
             });
         }
         this.views.clear();
-    }
-
-    _showInitializationError() {
-        const body = document.body;
-        const errorDiv = document.createElement('div');
-        errorDiv.innerHTML = `
-            <div style="
-                position: fixed; 
-                top: 50%; 
-                left: 50%; 
-                transform: translate(-50%, -50%);
-                background: #f8d7da;
-                color: #721c24;
-                padding: 20px;
-                border-radius: 8px;
-                border: 1px solid #f5c6cb;
-                max-width: 400px;
-                text-align: center;
-                z-index: 9999;
-            ">
-                <h3>Application Error</h3>
-                <p>Failed to initialize BMI Calculator. Please refresh the page and try again.</p>
-                <button onclick="location.reload()" style="
-                    background: #721c24;
-                    color: white;
-                    border: none;
-                    padding: 8px 16px;
-                    border-radius: 4px;
-                    cursor: pointer;
-                    margin-top: 10px;
-                ">Refresh Page</button>
-            </div>
-        `;
-        body.appendChild(errorDiv);
     }
 }
 

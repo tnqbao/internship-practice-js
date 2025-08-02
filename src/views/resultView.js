@@ -7,10 +7,7 @@ import { createBMIDefault } from "./components/bmiDefaultContent.js";
 export function createResultView(controller = null) {
     class ResultView {
         constructor(controller) {
-            this.controller = controller;
             this.elements = {};
-            this.isInitialized = false;
-            this.currentResult = null;
         }
 
         bindModel(model) {
@@ -21,146 +18,6 @@ export function createResultView(controller = null) {
             this.controller = controller;
         }
 
-        onResultChange(resultData) {
-            this.currentResult = resultData;
-            this._updateResultDisplay(resultData);
-        }
-
-        onUnitChange(newUnit) {
-            if (this.currentResult) {
-                this._updateUnitDependentElements(newUnit);
-            }
-        }
-
-        onDataChange(modelData) {
-            if (!modelData.isValid || !modelData.bmi) {
-                this._showDefaultContent();
-            }
-        }
-
-        showResult(resultData) {
-            this.currentResult = resultData;
-            this._updateResultDisplay(resultData);
-        }
-
-        hideResult() {
-            this._showDefaultContent();
-            this.currentResult = null;
-        }
-
-        reset() {
-            this._showDefaultContent();
-            this._resetResultPath();
-            this.currentResult = null;
-        }
-
-        _updateResultDisplay(data) {
-            this._hideDefaultContent();
-            this._showResultNumber();
-            this._updateBMIValue(data);
-            this._updateResultDetails(data);
-            this._updateResultPath(data);
-        }
-
-        _updateBMIValue(data) {
-            const bmiValueEl = this.elements.bmiValue;
-            if (bmiValueEl) {
-                bmiValueEl.textContent = data.bmi;
-                bmiValueEl.style.color = data.color;
-            }
-        }
-
-        _updateResultDetails(data) {
-            // Update age
-            const ageEl = this.elements.ageElement;
-            if (ageEl) {
-                ageEl.textContent = `${data.age} Years`;
-            }
-
-            // Update ideal weight range
-            const idealWeightEl = this.elements.idealWeightElement;
-            if (idealWeightEl) {
-                idealWeightEl.textContent = `${data.idealRange.min} ${data.weightUnit} to ${data.idealRange.max} ${data.weightUnit}`;
-            }
-
-            // Update category
-            const categoryEl = this.elements.categoryElement;
-            if (categoryEl) {
-                categoryEl.textContent = data.label;
-                categoryEl.style.color = data.color;
-            }
-        }
-
-        _updateResultPath(data) {
-            const pathEl = this.elements.resultPath;
-            if (!pathEl) return;
-
-            // Reset all arrows
-            const allArrows = pathEl.querySelectorAll('.bmi-arrow');
-            allArrows.forEach(arrow => arrow.style.opacity = '0');
-
-            // Highlight current range
-            const currentRange = pathEl.querySelector(`[data-range="${data.id}"]`);
-            if (currentRange) {
-                const currentArrow = currentRange.querySelector('.bmi-arrow');
-                if (currentArrow) {
-                    currentArrow.style.opacity = '1';
-                    currentRange.classList.add('active');
-                }
-            }
-        }
-
-        _resetResultPath() {
-            const pathEl = this.elements.resultPath;
-            if (!pathEl) return;
-
-            const allArrows = pathEl.querySelectorAll('.bmi-arrow');
-            allArrows.forEach(arrow => arrow.style.opacity = '0');
-
-            const allRanges = pathEl.querySelectorAll('[data-range]');
-            allRanges.forEach(range => range.classList.remove('active'));
-        }
-
-        _showDefaultContent() {
-            if (this.elements.defaultContent) {
-                this.elements.defaultContent.classList.remove('hidden');
-            }
-            if (this.elements.defaultTitle) {
-                this.elements.defaultTitle.classList.remove('hidden');
-            }
-        }
-
-        _hideDefaultContent() {
-            if (this.elements.defaultContent) {
-                this.elements.defaultContent.classList.add('hidden');
-            }
-            if (this.elements.defaultTitle) {
-                this.elements.defaultTitle.classList.add('hidden');
-            }
-        }
-
-        _showResultNumber() {
-            if (this.elements.resultNumber) {
-                this.elements.resultNumber.classList.remove('hidden');
-            }
-        }
-
-        _hideResultNumber() {
-            if (this.elements.resultNumber) {
-                this.elements.resultNumber.classList.add('hidden');
-            }
-        }
-
-        _updateUnitDependentElements(newUnit) {
-            // Update any unit-dependent displays
-            if (this.currentResult) {
-                // Re-render ideal weight with new unit
-                this._updateResultDetails({
-                    ...this.currentResult,
-                    weightUnit: newUnit === 'metric' ? 'kg' : 'lbs'
-                });
-            }
-        }
 
         _createResultTitle() {
             const resultTitle = customizeElement(document.createElement('h2'), {
@@ -182,8 +39,8 @@ export function createResultView(controller = null) {
                         className: ['text-secondary'],
                         textContent: 'Your BMI is:',
                     }),
-                    customizeElement(document.createElement('div'), {
-                        className: ['text-6xl', 'font-bold', 'text-primary'],
+                    customizeElement(document.createElement('h2'), {
+                        className: ['font-bold', 'text-primary'],
                         id: 'bmi-value',
                         textContent: '0.0'
                     })
@@ -221,19 +78,17 @@ export function createResultView(controller = null) {
             const { resultPath, resultIdeal, resultDesc, defaultContent } = this._createBMIComponents();
 
             const resultWrapper = customizeElement(document.createElement('div'), {
-                className: ['bmi-result-wrapper', 'flex', 'flex-col', 'items-center', 'justify-center', 'w-full', 'h-full', 'p-lg'],
-                id: 'result-view',
+                className: ['bmi-result-wrapper', 'flex-col', 'items-center', 'justify-between', 'w-full', 'h-full', 'p-lg','bg-secondary', 'rounded-1'],
                 dataset: { component: 'result-view' },
-                children: [
-                    resultTitle,
+                children: [resultTitle,
                     resultNumber,
                     resultPath,
                     resultIdeal,
                     resultDesc,
-                    defaultContent
-                ]
+                    defaultContent]
             });
 
+            this.elements.wrapper = resultWrapper;
             this.isInitialized = true;
             return resultWrapper;
         }

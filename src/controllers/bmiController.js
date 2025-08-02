@@ -29,6 +29,7 @@ export class BmiController {
         if (typeof view.bindModel === 'function') {
             view.bindModel(this._model);
         }
+
     }
 
     unregisterView(viewName) {
@@ -84,7 +85,6 @@ export class BmiController {
                 this._showValidationMessage('Invalid input values. Please check your height and weight.');
                 return null;
             }
-
             const result = this._buildBMIResult();
             this._updateResultViews(result);
             return result;
@@ -117,7 +117,6 @@ export class BmiController {
     }
 
     _handleUnitChange(newUnit, oldUnit) {
-        // Update input values in DOM
         this._convertAndUpdateInputValues(oldUnit, newUnit);
 
         this._updateUnitLabels(newUnit);
@@ -217,7 +216,6 @@ export class BmiController {
         const ageEl = document.getElementById('bmi-result-age');
         const idealWeightEl = document.getElementById('bmi-result-weight');
         const categoryEl = document.getElementById('bmi-result-desc-content');
-
         if (ageEl) ageEl.textContent = `${data.age} Years`;
         if (idealWeightEl) {
             idealWeightEl.textContent = `${data.idealRange.min} ${data.weightUnit} to ${data.idealRange.max} ${data.weightUnit}`;
@@ -248,9 +246,13 @@ export class BmiController {
     _hideDefaultContent() {
         const defaultContent = document.getElementById('bmi-default-content');
         const defaultTitle = document.getElementById('result-default-title');
-
+        const bmiResultDesc = document.getElementById('bmi-result-desc');
+        const bmiResultIdeal = document.getElementById('bmi-result-ideal');
+        if (bmiResultIdeal) bmiResultIdeal.classList.remove('hidden');
+        if (bmiResultDesc) bmiResultDesc.classList.remove('hidden');
         if (defaultContent) defaultContent.classList.add('hidden');
         if (defaultTitle) defaultTitle.classList.add('hidden');
+
     }
 
     _validateAndUpdateViews() {
@@ -286,7 +288,6 @@ export class BmiController {
 
     _handleValidationError(field, message) {
         console.warn(`Validation error for ${field}: ${message}`);
-        // Notify views about validation error
         this._views.forEach((view) => {
             if (typeof view.onValidationError === 'function') {
                 view.onValidationError(field, message);

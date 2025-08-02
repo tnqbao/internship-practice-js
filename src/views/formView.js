@@ -8,7 +8,6 @@ export function createFormView(controller) {
             this.controller = controller;
             this.currentUnit = 'metric';
             this.elements = {};
-            this.isInitialized = false;
         }
 
         bindModel(model) {
@@ -96,13 +95,12 @@ export function createFormView(controller) {
                     }),
                     customizeElement(document.createElement('input'), {
                         type: 'text',
-                        className: ['age-input', 'flex', 'flex-1', 'w-full', 'p-sm', 'm-b-sm', 'border', 'border-gray-300', 'rounded-1'],
+                        className: ['age-input', 'flex', 'flex-1', 'w-full', 'p-sm', 'm-b-sm', 'border', 'rounded-1'],
                         placeholder: 'DD/MM/YYYY',
                         id: 'age-input',
                         dataset: { component: 'age-input' },
                         events: {
                             change: (event) => this._handleAgeChange(event.target.value),
-                            blur: (event) => this._handleAgeChange(event.target.value)
                         }
                     })
                 ]
@@ -114,7 +112,7 @@ export function createFormView(controller) {
 
         _createHeightField() {
             const heightField = customizeElement(document.createElement('div'), {
-                className: ['flex', 'flex-col', 'flex-1', 'flex-wrap', 'm-b-xs'],
+                className: ['flex', 'flex-col', 'flex-1', 'flex-wrap', 'm-b-md'],
                 children: [
                     customizeElement(document.createElement('label'), {
                         className: ['text-primary', 'p-x-sm'],
@@ -123,7 +121,7 @@ export function createFormView(controller) {
                     }),
                     customizeElement(document.createElement('input'), {
                         type: 'number',
-                        className: ['height-input', 'flex', 'flex-1', 'w-full', 'p-sm', 'm-b-sm', 'border', 'border-gray-300', 'rounded-1'],
+                        className: ['height-input', 'flex', 'flex-1', 'w-full', 'p-sm', 'm-b-sm', 'border', 'rounded-1'],
                         placeholder: 'Enter your height',
                         id: 'height-input',
                         dataset: { component: 'height-input' },
@@ -153,7 +151,7 @@ export function createFormView(controller) {
                     }),
                     customizeElement(document.createElement('input'), {
                         type: 'number',
-                        className: ['weight-input', 'flex', 'flex-1', 'w-full', 'p-sm', 'm-b-lg', 'border', 'border-gray-300', 'rounded-1'],
+                        className: ['weight-input', 'flex', 'flex-1', 'w-full', 'p-sm', 'm-b-lg', 'border', 'rounded-1'],
                         placeholder: 'Enter your weight',
                         id: 'weight-input',
                         dataset: { component: 'weight-input' },
@@ -217,7 +215,7 @@ export function createFormView(controller) {
             const unitToggleButton = this._createUnitToggleButton();
 
             const formWrapper = customizeElement(document.createElement('div'), {
-                className: ['bmi-form-wrapper', 'flex', 'flex-col', 'container', 'flex-wrap', 'items-center', 'justify-center', 'w-full', 'h-full', 'p-lg', 'rounded-6'],
+                className: ['bmi-form-wrapper', 'flex', 'flex-col', 'container', 'flex-wrap', 'items-center', 'justify-center', 'w-full', 'h-full', 'p-lg', 'rounded-6', 'gap-sm'],
                 id: 'form-view',
                 dataset: { component: 'form-view' },
                 children: [genderToggle, ageField, weightField, heightField, calculateButton, unitToggleButton]
@@ -228,12 +226,9 @@ export function createFormView(controller) {
         }
     }
 
-    // Create and return view instance
     const formView = new FormView(controller);
 
-    // Register view with controller
     controller.registerView('form', formView);
 
-    // Return rendered form
     return formView.render();
 }
