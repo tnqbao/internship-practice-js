@@ -14,13 +14,12 @@ class BMIApplication {
 
     async initialize() {
         try {
-            this._initializeController();
             this._initializeViews();
+            this._initializeController();
             this._setupLayout();
             this._bindEvents();
 
             this.isInitialized = true;
-            console.log('BMI Application initialized successfully');
 
         } catch (error) {
             console.error('Failed to initialize BMI Application:', error);
@@ -46,15 +45,20 @@ class BMIApplication {
         const footerElement = document.getElementById('footer');
 
         if (headerElement) {
-            headerElement.appendChild(createHeader());
+            const headerView = createHeader(this.controller);
+            headerElement.appendChild(headerView);
+            this.views.set('header', headerView);
         }
 
         if (footerElement) {
-            footerElement.appendChild(createFooter());
+            const footerView = createFooter(this.controller);
+            footerElement.appendChild(footerView);
+            this.views.set('footer', footerView);
         }
     }
 
     _createApplicationViews() {
+        // Main application views with controller integration
         this._createFormView();
         this._createResultView();
         this._createInformationView();
@@ -72,21 +76,16 @@ class BMIApplication {
     _createResultView() {
         const resultSection = document.getElementById('result-section');
         if (resultSection) {
-            const resultView = createResultView();
+            const resultView = createResultView(this.controller);
             resultSection.appendChild(resultView);
             this.views.set('result', resultView);
-
-            if (typeof resultView.bindController === 'function') {
-                resultView.bindController(this.controller);
-                this.controller.registerView('result', resultView);
-            }
         }
     }
 
     _createInformationView() {
         const infoSection = document.getElementById('info-section');
         if (infoSection) {
-            const infoView = createInformation();
+            const infoView = createInformation(this.controller);
             infoSection.appendChild(infoView);
             this.views.set('information', infoView);
         }
@@ -141,7 +140,6 @@ class BMIApplication {
     }
 
     _cleanup() {
-        // Cleanup resources when app is destroyed
         if (this.controller) {
             this.views.forEach((view, name) => {
                 this.controller.unregisterView(name);
@@ -183,28 +181,12 @@ class BMIApplication {
         `;
         body.appendChild(errorDiv);
     }
-
-    // Public API
-    getController() {
-        return this.controller;
-    }
-
-    getView(name) {
-        return this.views.get(name);
-    }
-
-    isReady() {
-        return this.isInitialized && this.controller !== null;
-    }
 }
 
-// Application initialization
 const bmiApp = new BMIApplication();
 
-// Initialize when DOM is ready
 document.addEventListener('DOMContentLoaded', () => {
     bmiApp.initialize();
 });
 
-// Export for potential external access
 window.BMIApp = bmiApp;

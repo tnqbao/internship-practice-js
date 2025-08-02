@@ -3,7 +3,6 @@ import {createGenderToggle} from "./components/genderToggle.js";
 import validation from '../config/validation.json' with { type: 'json' };
 
 export function createFormView(controller) {
-    // Create a FormView class to manage view state and interactions
     class FormView {
         constructor(controller) {
             this.controller = controller;
@@ -12,7 +11,6 @@ export function createFormView(controller) {
             this.isInitialized = false;
         }
 
-        // MVC View interface methods
         bindModel(model) {
             this.model = model;
         }
@@ -23,7 +21,6 @@ export function createFormView(controller) {
         }
 
         onDataChange(modelData) {
-            // Update UI based on model changes if needed
             this._updateFormValidation(modelData);
         }
 
@@ -31,7 +28,6 @@ export function createFormView(controller) {
             this._showFieldError(field, message);
         }
 
-        // Event handlers for controller interaction
         _handleHeightChange(value) {
             if (value && !isNaN(value)) {
                 this.controller.updateHeight(parseFloat(value));
@@ -58,7 +54,6 @@ export function createFormView(controller) {
             this.controller.calculateBMI();
         }
 
-        // UI Update methods
         _updateValidationRules() {
             const heightInput = this.elements.heightInput;
             const weightInput = this.elements.weightInput;
@@ -73,7 +68,6 @@ export function createFormView(controller) {
         }
 
         _updateFormValidation(modelData) {
-            // Add visual feedback for validation state
             this._updateFieldValidation('height', modelData.height > 0);
             this._updateFieldValidation('weight', modelData.weight > 0);
             this._updateFieldValidation('age', modelData.age > 0);
@@ -88,11 +82,9 @@ export function createFormView(controller) {
         }
 
         _showFieldError(field, message) {
-            // Could be enhanced with proper error UI
             console.warn(`${field}: ${message}`);
         }
 
-        // Element creation methods
         _createAgeField() {
             const ageField = customizeElement(document.createElement('div'), {
                 className: ['flex', 'flex-col', 'flex-1', 'flex-wrap', 'm-b-sm'],
