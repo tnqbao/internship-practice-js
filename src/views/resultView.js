@@ -6,21 +6,22 @@ import { createBMIDefault } from "./components/bmiDefaultContent.js";
 
 export function createResultView() {
     const resultTitle = customizeElement(document.createElement('h2'), {
-        className: ['text-center', 'mb-4', 'text-xl', 'font-bold', 'color-primary'],
+        id : 'result-default-title',
+        className: ['text-center', 'mb-4', 'font-bold', 'color-primary'],
         textContent: 'Your BMI Result',
     });
 
     const resultNumber = customizeElement(document.createElement('div'), {
-        className: ['flex', 'flex-col', 'items-center', 'hidden'],
+        className: ['flex', 'flex-col', 'items-center', 'hidden','justify-center', 'gap-2'],
         id: 'result-number',
         children: [
-            customizeElement(document.createElement('span'), {
+            customizeElement(document.createElement('h2'), {
                 className: ['text-secondary'],
                 textContent: 'Your BMI is:',
             }),
-            customizeElement(document.createElement('span'), {
+            customizeElement(document.createElement('h2'), {
                 id: 'bmi-value',
-                className: ['text-primary', 'text-xl'],
+                className: ['text-primary'],
                 textContent: '0',
             })
         ]
