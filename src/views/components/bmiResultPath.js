@@ -1,24 +1,18 @@
 import { customizeElement } from "../../utils/handleElement.js";
+import bmiRanges from "../../config/bmiRanges.json" with { type: 'json' };
 
-const bmiGrades = [
-    { id: 'grade-3-lean' },
-    { id: 'grade-2-lean' },
-    { id: 'grade-1-lean' },
-    { id: 'grade-normal', className: ['bmi-result-line', 'w-full', 'h-1', 'bg-yellow-500', 'rounded'] },
-    { id: 'grade-pre-obese' },
-    { id: 'grade-1-obese' },
-    { id: 'grade-2-obese' },
-    { id: 'grade-3-obese' },
-];
-
-function createBmiLine({ id, className = ['bmi-result-line', 'w-full', 'rounded'] }) {
+function createBmiLine({ id, label }) {
     return customizeElement(document.createElement('div'), {
-        id,
-        className,
+        id: `range-${id}`,
+        className: ['bmi-result-line', 'w-full', 'h-4', 'rounded', 'transition-all', 'duration-300'],
+        dataset: {
+            range: id
+        },
+        title: label,
         innerHTML: `
-            <span class="rounded-lg"></span>
-            <div class="bmi-arrow">
-                <svg width="100%" height="24px" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
+            <span class="bmi-result-line"> </span>
+            <div class="bmi-arrow range-${id} opacity-0">
+                <svg width="20" height="20" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
                     <g fill="none" fill-rule="evenodd">
                         <g fill="#000000" transform="translate(32, 42.666667)">
                             <path d="M246.31,5.63 C252.93,9.41 258.41,14.89 262.19,21.51 L444.67,340.84 
@@ -34,7 +28,7 @@ function createBmiLine({ id, className = ['bmi-result-line', 'w-full', 'rounded'
 }
 
 export function createBmiResultPath() {
-    const children = bmiGrades.map(createBmiLine);
+    const children = bmiRanges.map(createBmiLine);
 
     return customizeElement(document.createElement('div'), {
         id: 'bmi-result-path',

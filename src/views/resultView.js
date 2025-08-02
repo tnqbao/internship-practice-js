@@ -1,38 +1,100 @@
-import {customizeElement} from "../utils/handleElement.js";
-import {createBmiResultPath} from "./components/bmiResultPath.js";
-import {createBMIResultIdeal} from "./components/bmiResultIdeal.js";
-import {createBMIResultDesc} from "./components/bmiResultDesc.js";
-import {createBMIDefault} from "./components/bmiDefaultContent.js";
+import { customizeElement } from "../utils/handleElement.js";
+import { createBmiResultPath } from "./components/bmiResultPath.js";
+import { createBMIResultIdeal } from "./components/bmiResultIdeal.js";
+import { createBMIResultDesc } from "./components/bmiResultDesc.js";
+import { createBMIDefault } from "./components/bmiDefaultContent.js";
 
-export function createResultView() {
-    const resultTitle = customizeElement(document.createElement('h2'), {
-        className: ['flex','flex-center', 'flex-1','mb-4'],
-        textContent: 'Your BMI Result',
-    })
+export function createResultView(controller = null) {
+    class ResultView {
+        constructor(controller) {
+            this.elements = {};
+        }
 
-    const resultNumber = customizeElement(document.createElement('h2'), {
-        className: ['flex', 'flex-start','text-primary', 'hidden'],
-        id: 'result-number',
-        innerHTML: `
-            <h2 class="text-secondary">Your BMI is: </h2>
-            <h2 class="text-primary" id="bmi-value"> 0 </h2>
-        `
-    });
+        bindModel(model) {
+            this.model = model;
+        }
 
-    const resulPaths = createBmiResultPath();
-    const bmiResultIdeal = createBMIResultIdeal();
-    const bmiResultDesc = createBMIResultDesc();
-    const bmiDefaultContent = createBMIDefault();
-    return customizeElement(document.createElement('div'), {
-        className: ['result-view', 'flex','flex-col', 'flex-wrap','items-center', 'justify-center', 'bg-secondary','w-full','rounded-xl','p-lg','gap-4'],
-        id: 'result-view',
-        children: [
-            resultTitle,
-            resultNumber,
-            resulPaths,
-            bmiResultIdeal,
-            bmiResultDesc,
-            bmiDefaultContent
-        ]
-    });
+
+        _createResultTitle() {
+            const resultTitle = customizeElement(document.createElement('h2'), {
+                id: 'result-default-title',
+                className: ['text-center', 'mb-4', 'font-bold', 'color-primary'],
+                textContent: 'Your BMI Result',
+            });
+
+            this.elements.defaultTitle = resultTitle;
+            return resultTitle;
+        }
+
+        _createResultNumber() {
+            const resultNumber = customizeElement(document.createElement('div'), {
+                className: ['flex', 'flex-col', 'items-center', 'hidden', 'justify-center', 'gap-2'],
+                id: 'result-number',
+                children: [
+                    customizeElement(document.createElement('h2'), {
+                        className: ['text-secondary'],
+                        textContent: 'Your BMI is:',
+                    }),
+                    customizeElement(document.createElement('h2'), {
+                        className: ['font-bold', 'text-primary'],
+                        id: 'bmi-value',
+                        textContent: '0.0'
+                    })
+                ]
+            });
+
+            this.elements.resultNumber = resultNumber;
+            this.elements.bmiValue = resultNumber.querySelector('#bmi-value');
+            return resultNumber;
+        }
+
+        _createBMIComponents() {
+            const resultPath = createBmiResultPath();
+            const resultIdeal = createBMIResultIdeal();
+            const resultDesc = createBMIResultDesc();
+            const defaultContent = createBMIDefault();
+
+            this.elements.resultPath = resultPath;
+            this.elements.idealWeightElement = resultIdeal.querySelector('#bmi-result-weight');
+            this.elements.ageElement = resultIdeal.querySelector('#bmi-result-age');
+            this.elements.categoryElement = resultDesc.querySelector('#bmi-result-desc-content');
+            this.elements.defaultContent = defaultContent;
+
+            return {
+                resultPath,
+                resultIdeal,
+                resultDesc,
+                defaultContent
+            };
+        }
+
+        render() {
+            const resultTitle = this._createResultTitle();
+            const resultNumber = this._createResultNumber();
+            const { resultPath, resultIdeal, resultDesc, defaultContent } = this._createBMIComponents();
+
+            const resultWrapper = customizeElement(document.createElement('div'), {
+                className: ['bmi-result-wrapper', 'flex-col', 'items-center', 'justify-between', 'w-full', 'h-full', 'p-lg','bg-secondary', 'rounded-1'],
+                dataset: { component: 'result-view' },
+                children: [resultTitle,
+                    resultNumber,
+                    resultPath,
+                    resultIdeal,
+                    resultDesc,
+                    defaultContent]
+            });
+
+            this.elements.wrapper = resultWrapper;
+            this.isInitialized = true;
+            return resultWrapper;
+        }
+    }
+
+    const resultView = new ResultView(controller);
+
+    if (controller && typeof controller.registerView === 'function') {
+        controller.registerView('result', resultView);
+    }
+
+    return resultView.render();
 }

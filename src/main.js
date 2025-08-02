@@ -3,28 +3,154 @@ import { createFooter } from './views/footer.js';
 import { createFormView } from './views/formView.js';
 import { createResultView } from './views/resultView.js';
 import { createInformation } from './views/information.js';
+import { BmiController } from './controllers/bmiController.js';
 
-function initializePage() {
-    const headerElement = document.getElementById('header');
-    headerElement.appendChild(createHeader());
+class BMIApplication {
+    constructor() {
+        this.controller = null;
+        this.views = new Map();
+        this.isInitialized = false;
+    }
 
-    const footerElement = document.getElementById('footer');
-    footerElement.appendChild(createFooter());
+    async initialize() {
+        try {
+            this._initializeController();
+            this._initializeViews();
+            this._setupLayout();
+            this._bindEvents();
 
-    const formSection = document.getElementById('form-section');
-    formSection.appendChild(createFormView());
+            this.isInitialized = true;
 
-    const resultSection = document.getElementById('result-section');
-    resultSection.appendChild(createResultView());
+        } catch (error) {
+            console.error('Failed to initialize BMI Application:', error);
+            this._showInitializationError();
+        }
+    }
 
-    const infoSection = document.getElementById('info-section');
-    infoSection.appendChild(createInformation());
+    _initializeController() {
+        this.controller = new BmiController();
 
-    const bmiContent = document.getElementById('bmi-content');
-    bmiContent.classList.add('flex', 'flex-col', 'items-center', 'justify-center');
+        this.controller.onError = (error) => {
+            console.error('Controller error:', error);
+        };
+    }
 
-    const mainContent = document.getElementById('main-content');
-    mainContent.classList.add('flex', 'items-start', 'justify-center', 'flex-wrap', 'container','m-t-lg', 'gap-4');
+    _initializeViews() {
+        this._createLayoutViews();
+        this._createApplicationViews();
+    }
+
+    _createLayoutViews() {
+        const headerElement = document.getElementById('header');
+        const footerElement = document.getElementById('footer');
+
+        if (headerElement) {
+            const headerView = createHeader(this.controller);
+            headerElement.appendChild(headerView);
+            this.views.set('header', headerView);
+        }
+
+        if (footerElement) {
+            const footerView = createFooter(this.controller);
+            footerElement.appendChild(footerView);
+            this.views.set('footer', footerView);
+        }
+    }
+
+    _createApplicationViews() {
+        this._createFormView();
+        this._createResultView();
+        this._createInformationView();
+    }
+
+    _createFormView() {
+        const formSection = document.getElementById('form-section');
+        if (formSection) {
+            const formView = createFormView(this.controller);
+            formSection.appendChild(formView);
+            this.views.set('form', formView);
+        }
+    }
+
+    _createResultView() {
+        const resultSection = document.getElementById('result-section');
+        if (resultSection) {
+            const resultView = createResultView(this.controller);
+            resultSection.appendChild(resultView);
+            this.views.set('result', resultView);
+        }
+    }
+
+    _createInformationView() {
+        const infoSection = document.getElementById('info-section');
+        if (infoSection) {
+            const infoView = createInformation(this.controller);
+            infoSection.appendChild(infoView);
+            this.views.set('information', infoView);
+        }
+    }
+
+    _setupLayout() {
+        this._setupBMIContent();
+        this._setupMainContent();
+    }
+
+    _setupBMIContent() {
+        const bmiContent = document.getElementById('bmi-content');
+        if (bmiContent) {
+            bmiContent.classList.add('flex', 'flex-col', 'items-center', 'justify-center');
+        }
+    }
+
+    _setupMainContent() {
+        const mainContent = document.getElementById('main-content');
+        if (mainContent) {
+            mainContent.classList.add('flex', 'items-start', 'justify-center', 'flex-wrap', 'container', 'm-t-lg', 'gap-4');
+        }
+    }
+
+    _bindEvents() {
+        this._bindKeyboardEvents();
+        this._bindWindowEvents();
+    }
+
+    _bindKeyboardEvents() {
+        document.addEventListener('keydown', (event) => {
+            if (event.ctrlKey || event.metaKey) {
+                switch (event.key) {
+                    case 'Enter':
+                        event.preventDefault();
+                        this.controller.calculateBMI();
+                        break;
+                    case 'u':
+                        event.preventDefault();
+                        this.controller.toggleUnit();
+                        break;
+                }
+            }
+        });
+    }
+
+    _bindWindowEvents() {
+        window.addEventListener('beforeunload', () => {
+            this._cleanup();
+        });
+    }
+
+    _cleanup() {
+        if (this.controller) {
+            this.views.forEach((view, name) => {
+                this.controller.unregisterView(name);
+            });
+        }
+        this.views.clear();
+    }
 }
 
-document.addEventListener('DOMContentLoaded', initializePage);
+const bmiApp = new BMIApplication();
+
+document.addEventListener('DOMContentLoaded', () => {
+    bmiApp.initialize();
+});
+
+window.BMIApp = bmiApp;

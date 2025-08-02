@@ -10,7 +10,7 @@ export function createBMIResultDesc() {
                 Assessment:
                 </strong> 
             </span>
-            <span id='bmi-result-assessment' class='color-primary'> Normal </span>
+            <span id='bmi-result-desc-content' class='color-primary'> Normal </span>
         `,
     });
 
@@ -33,7 +33,7 @@ export function createBMIResultDesc() {
     });
 
     return customizeElement(document.createElement('div'), {
-        className: ['bmi-result-desc', 'flex', 'flex-col','flex-wrap','items-center', 'justify-between', 'w-full','gap-4'],
+        className: ['bmi-result-desc', 'flex', 'flex-col','flex-wrap','items-center', 'justify-between', 'w-full','gap-4','hidden'],
         id: 'bmi-result-desc',
         children: [
             assessmentDesc,

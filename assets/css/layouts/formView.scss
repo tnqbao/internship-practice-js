@@ -12,14 +12,6 @@
   color: var(--text-primary);
 }
 
-#form-section {
-  width: 40%;
-  border-radius: var(--radius-xxl);
-  border: 1px solid transparent;
-  box-shadow: var(--shadow-xs);
-}
-
-
 .bmi-form-wrapper {
   border: 2px solid #dee2e6;
   border-radius: 12px;
@@ -42,3 +34,34 @@
   box-shadow: 0 0 0 2px rgba(13, 110, 253, 0.25);
 }
 
+#unit-toggle-button {
+  border-color: var(--border-secondary);
+  width: 100%;
+}
+
+#calculate-button {
+  width: 100%;
+}
+
+@media (min-width: 768px) {
+  #form-section {
+    width: 100%;
+  }
+}
+
+@media (min-width: 1080px) {
+  #form-section {
+    width: 40%;
+    border-radius: var(--radius-xxl);
+    border: 1px solid transparent;
+    box-shadow: var(--shadow-xs);
+  }
+
+  #unit-toggle-button {
+    width: 45%;
+  }
+
+  #calculate-button {
+    width: 45%;
+  }
+}
