@@ -4,7 +4,6 @@ export function createLogo() {
 
     const logo = document.createElement('div');
     logo.className = 'logo-picture';
-
     logo.innerHTML = `
         <svg xmlns="http://www.w3.org/2000/svg" width="81" height="35.671" viewBox="0 0 81 35.671">
             <g id="Сгруппировать_3754" data-name="Сгруппировать 3754" transform="translate(0 -6)">
@@ -23,6 +22,9 @@ export function createLogo() {
         dataset: {
             component: 'logo'
         },
+        target: '_self',
+        rel: 'noopener noreferrer',
+        ariaLabel: 'Go to homepage',
         className: ['logo','p-2']
     });
 

@@ -24,6 +24,9 @@ export function createHeaderInformation() {
         dataset: {
             component: 'email'
         },
+        target: '_blank',
+        rel: 'noopener noreferrer',
+        ariaLabel: 'Email to Tran Nguyen Quoc Bao',
         events: {
             mouseenter: (e) => e.target.style.transform = 'scale(1.1)',
             mouseleave: (e) => e.target.style.transform = 'scale(1)'
@@ -43,6 +46,9 @@ export function createHeaderInformation() {
         dataset: {
             component: 'phone-number'
         },
+        target: '_blank',
+        rel: 'noopener noreferrer',
+        ariaLabel: 'Call Tran Nguyen Quoc Bao',
         events: {
             mouseenter: (e) => e.target.style.transform = 'scale(1.1)',
             mouseleave: (e) => e.target.style.transform = 'scale(1)'
@@ -62,6 +68,7 @@ export function createHeaderInformation() {
         href: 'https://www.linkedin.com/in/tnqb2004/',
         target: '_blank',
         rel: 'noopener noreferrer',
+        ariaLabel: 'LinkedIn profile of Tran Nguyen Quoc Bao',
         dataset: {
             component: 'linked-in'
         }
