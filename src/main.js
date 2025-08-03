@@ -23,7 +23,6 @@ class BMIApplication {
 
         } catch (error) {
             console.error('Failed to initialize BMI Application:', error);
-            this._showInitializationError();
         }
     }
 

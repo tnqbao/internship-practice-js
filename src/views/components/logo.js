@@ -2,7 +2,7 @@ import {customizeElement} from "../../utils/handleElement.js";
 
 export function createLogo() {
 
-    const logo = document.createElement('div');
+    const logo = document.createElement('a');
     logo.className = 'logo-picture';
     logo.innerHTML = `
         <svg xmlns="http://www.w3.org/2000/svg" width="81" height="35.671" viewBox="0 0 81 35.671">
