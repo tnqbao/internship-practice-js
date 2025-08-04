@@ -87,7 +87,7 @@ bmi-calculator/
 ---
 
 ## Deployment Link:
-[https://practice-js.daudoo.com/](https://practice-js.daudoo.com/)
+[https://practice-js.gauas.online/](https://practice-js.gauas.online/)
 
 ---
 ## Contact
