@@ -161,6 +161,13 @@ export class BmiModel {
         return value;
     }
 
+    convertHeight(value, fromUnit, toUnit) {
+        return this.#convertHeight(value, fromUnit, toUnit);
+    }
+    convertWeight(value, fromUnit, toUnit) {
+        return this.#convertWeight(value, fromUnit, toUnit);
+    }
+
     calculateAgeFromDateOfBirth(dateOfBirth) {
         if (!dateOfBirth) throw new Error('Date of birth is required');
 

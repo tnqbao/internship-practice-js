@@ -14,7 +14,7 @@ export function createHeaderInformation() {
         className: ['email', 'text-sm'],
         id: 'email',
         innerHTML: `
-        <img src="https://cdn.gauas.online/internship/email-icon.svg" alt="Email Icon" width="30px" height="30px">
+        <img src="https://cdn.gauas.online/images/internship/email-icon.svg" alt="Email Icon" width="30px" height="30px">
         `,
         href: 'mailto:qquocbao.job106204@gmail.com',
         dataset: {
@@ -33,7 +33,7 @@ export function createHeaderInformation() {
         className: ['phone-number', 'text-sm'],
         id: 'phone-number',
         innerHTML: `
-        <img src="https://cdn.gauas.online/internship/phone-call-icon.svg" alt="Phone Icon" width="30px" height="30px">
+        <img src="https://cdn.gauas.online/images/internship/phone-call-icon.svg" alt="Phone Icon" width="30px" height="30px">
         `,
         href: 'tel:+84367641617',
         dataset: {
@@ -52,7 +52,7 @@ export function createHeaderInformation() {
         className: ['linked-in', 'text-sm'],
         id: 'linked-in',
         innerHTML: `
-        <img src="https://cdn.gauas.online/internship/linkedin-icon.svg" alt="LinkedIn Icon" width="30px" height="30px">
+        <img src="https://cdn.gauas.online/images/internship/linkedin-icon.svg" alt="LinkedIn Icon" width="30px" height="30px">
         `,
         href: 'https://www.linkedin.com/in/tnqb2004/',
         target: '_blank',

@@ -14,7 +14,7 @@ export function createFooter(controller = null) {
                 id: 'phone-contact',
                 innerHTML: `
                 <div class="phone-icon flex items-center justify-center">
-                    <img src="https://cdn.gauas.online/internship/phone.svg" alt="phone-button"/>
+                    <img src="https://cdn.gauas.online/images/internship/phone.svg" alt="phone-button"/>
                 </div>
                 <span class="phone-number text-xxl">1900 1717</span>
                 `,

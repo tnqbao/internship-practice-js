@@ -5,7 +5,7 @@ export function createLogo() {
     const logo = document.createElement('a');
     logo.className = 'logo-picture';
     logo.innerHTML = `
-        <img src="https://cdn.gauas.online/internship/logo.svg" alt="Logo" class="logo-image" style="width: 100px; display: block;">
+        <img src="https://cdn.gauas.online/images/internship/logo.svg" alt="Logo" class="logo-image" style="width: 100px; display: block;">
     `;
 
     return customizeElement(logo, {

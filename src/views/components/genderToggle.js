@@ -5,7 +5,7 @@ export function createGenderToggle() {
         id: 'male-button',
         className: ['male-button', 'flex', 'flex-2', 'bg-secondary', 'justify-center', 'items-center', 'gap-2', 'border-0', 'p-sm', 'active'],
         innerHTML: `
-        <img src="https://cdn.gauas.online/internship/male-icon.svg" alt="Male Icon">
+        <img src="https://cdn.gauas.online/images/internship/male-icon.svg" alt="Male Icon">
         <span>Male</span>            
         `,
         events: {
@@ -21,7 +21,7 @@ export function createGenderToggle() {
         id: 'female-button',
         className: ['female-button', 'flex', 'flex-2', 'bg-secondary', 'justify-center', 'items-center', 'gap-2', 'border-0', 'p-sm', 'rounded'],
         innerHTML: `
-        <img src="https://cdn.gauas.online/internship/female-icon.svg" alt="Female Icon">
+        <img src="https://cdn.gauas.online/images/internship/female-icon.svg" alt="Female Icon">
         <span>Female</span>
     `,
         events: {

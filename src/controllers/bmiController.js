@@ -157,14 +157,14 @@ export class BmiController {
 
     #convertHeightUsingStrategies(value, fromUnit, toUnit) {
         if (fromUnit !== toUnit) {
-            return this.#model._convertHeight(value, fromUnit, toUnit);
+            return this.#model.convertHeight(value, fromUnit, toUnit);
         }
         return value;
     }
 
     #convertWeightUsingStrategies(value, fromUnit, toUnit) {
         if (fromUnit !== toUnit) {
-            return this.#model._convertWeight(value, fromUnit, toUnit);
+            return this.#model.convertWeight(value, fromUnit, toUnit);
         }
         return value;
     }

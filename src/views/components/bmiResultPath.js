@@ -12,7 +12,7 @@ function createBmiLine({ id, label }) {
         innerHTML: `
             <span class="bmi-result-line"> </span>
             <div class="bmi-arrow range-${id} opacity-0">
-                <img src="https://cdn.gauas.online/internship/arrow.svg" alt="Arrow Icon" width="20" height="20">
+                <img src="https://cdn.gauas.online/images/internship/arrow.svg" alt="Arrow Icon" width="20" height="20">
             </div>
         `,
     });
