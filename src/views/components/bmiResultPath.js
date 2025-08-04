@@ -12,16 +12,7 @@ function createBmiLine({ id, label }) {
         innerHTML: `
             <span class="bmi-result-line"> </span>
             <div class="bmi-arrow range-${id} opacity-0">
-                <svg width="20" height="20" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
-                    <g fill="none" fill-rule="evenodd">
-                        <g fill="#000000" transform="translate(32, 42.666667)">
-                            <path d="M246.31,5.63 C252.93,9.41 258.41,14.89 262.19,21.51 L444.67,340.84 
-                                     C456.36,361.3 449.25,387.36 428.79,399.05 C422.34,402.74 415.05,404.68 
-                                     407.62,404.68 L42.67,404.68 C19.1,404.68 0,385.57 0,362.01 C0,354.58 
-                                     1.94,347.29 5.62,340.84 L188.1,21.51 C199.79,1.05 225.85,-6.06 246.31,5.63 Z"/>
-                        </g>
-                    </g>
-                </svg>
+                <img src="https://cdn.gauas.online/internship/arrow.svg" alt="Arrow Icon" width="20" height="20">
             </div>
         `,
     });

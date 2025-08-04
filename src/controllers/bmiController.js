@@ -1,104 +1,107 @@
 import {BmiModel} from '../models/bmiModel.js';
 
 export class BmiController {
+    #model;
+    #views;
+
     constructor() {
-        this._model = new BmiModel();
-        this._views = new Map();
-        this._initializeModel();
+        this.#model = new BmiModel();
+        this.#views = new Map();
+        this.#initializeModel();
     }
 
-    _initializeModel() {
-        this._model.addObserver(this);
+    #initializeModel() {
+        this.#model.addObserver(this);
     }
 
     onModelChange(property, newValue, oldValue) {
         switch (property) {
             case 'type':
-                this._handleUnitChange(newValue, oldValue);
+                this.#handleUnitChange(newValue, oldValue);
                 break;
             case 'height':
             case 'weight':
             case 'age':
-                this._validateAndUpdateViews();
+                this.#validateAndUpdateViews();
                 break;
         }
     }
 
     registerView(viewName, view) {
-        this._views.set(viewName, view);
+        this.#views.set(viewName, view);
         if (typeof view.bindModel === 'function') {
-            view.bindModel(this._model);
+            view.bindModel(this.#model);
         }
 
     }
 
     unregisterView(viewName) {
-        this._views.delete(viewName);
+        this.#views.delete(viewName);
     }
 
     updateHeight(value) {
         try {
-            this._model.height = value;
+            this.#model.height = value;
         } catch (error) {
-            this._handleValidationError('height', error.message);
+            this.#handleValidationError('height', error.message);
         }
     }
 
     updateWeight(value) {
         try {
-            this._model.weight = value;
+            this.#model.weight = value;
         } catch (error) {
-            this._handleValidationError('weight', error.message);
+            this.#handleValidationError('weight', error.message);
         }
     }
 
     updateAge(dateOfBirth) {
         try {
-            this._model.setAgeFromDateOfBirth(dateOfBirth);
+            this.#model.setAgeFromDateOfBirth(dateOfBirth);
         } catch (error) {
-            this._handleValidationError('age', error.message);
+            this.#handleValidationError('age', error.message);
         }
     }
 
     toggleUnit() {
-        const currentUnit = this._model.type;
+        const currentUnit = this.#model.type;
         const newUnit = currentUnit === 'metric' ? 'imperial' : 'metric';
 
         try {
-            this._model.convertToUnit(newUnit);
+            this.#model.convertToUnit(newUnit);
 
-            this._updateViewsForUnitChange(newUnit);
+            this.#updateViewsForUnitChange(newUnit);
 
         } catch (error) {
-            this._handleError('Unit conversion failed', error);
+            this.#handleError('Unit conversion failed', error);
         }
     }
 
     calculateBMI() {
         try {
-            if (!this._model.isDataComplete()) {
-                this._showValidationMessage('Please fill in all fields: date of birth, height, and weight.');
+            if (!this.#model.isDataComplete()) {
+                this.#showValidationMessage('Please fill in all fields: date of birth, height, and weight.');
                 return null;
             }
 
-            if (!this._model.isValid()) {
-                this._showValidationMessage('Invalid input values. Please check your height and weight.');
+            if (!this.#model.isValid()) {
+                this.#showValidationMessage('Invalid input values. Please check your height and weight.');
                 return null;
             }
-            const result = this._buildBMIResult();
-            this._updateResultViews(result);
+            const result = this.#buildBMIResult();
+            this.#updateResultViews(result);
             return result;
 
         } catch (error) {
-            this._handleError('BMI calculation failed', error);
+            this.#handleError('BMI calculation failed', error);
             return null;
         }
     }
 
-    _buildBMIResult() {
-        const bmi = this._model.calculateBMI();
-        const category = this._model.getBMICategory();
-        const idealRange = this._model.getIdealWeightRange();
+    #buildBMIResult() {
+        const bmi = this.#model.calculateBMI();
+        const category = this.#model.getBMICategory();
+        const idealRange = this.#model.getIdealWeightRange();
 
         return {
             bmi: bmi.toFixed(1),
@@ -109,27 +112,27 @@ export class BmiController {
                 max: idealRange[1].toFixed(1),
             },
             id: category.id,
-            age: this._model.age,
-            unit: this._model.type,
-            weightUnit: this._model.getWeightUnit(),
-            heightUnit: this._model.getHeightUnit()
+            age: this.#model.age,
+            unit: this.#model.type,
+            weightUnit: this.#model.getWeightUnit(),
+            heightUnit: this.#model.getHeightUnit()
         };
     }
 
-    _handleUnitChange(newUnit, oldUnit) {
-        this._convertAndUpdateInputValues(oldUnit, newUnit);
+    #handleUnitChange(newUnit, oldUnit) {
+        this.#convertAndUpdateInputValues(oldUnit, newUnit);
 
-        this._updateUnitLabels(newUnit);
+        this.#updateUnitLabels(newUnit);
 
-        this._updateToggleButton(newUnit);
+        this.#updateToggleButton(newUnit);
     }
 
-    _convertAndUpdateInputValues(fromUnit, toUnit) {
+    #convertAndUpdateInputValues(fromUnit, toUnit) {
         const heightInput = document.getElementById('height-input');
         const weightInput = document.getElementById('weight-input');
 
         if (heightInput && heightInput.value) {
-            const convertedHeight = this._convertHeightUsingStrategies(
+            const convertedHeight = this.#convertHeightUsingStrategies(
                 parseFloat(heightInput.value),
                 fromUnit,
                 toUnit
@@ -138,7 +141,7 @@ export class BmiController {
         }
 
         if (weightInput && weightInput.value) {
-            const convertedWeight = this._convertWeightUsingStrategies(
+            const convertedWeight = this.#convertWeightUsingStrategies(
                 parseFloat(weightInput.value),
                 fromUnit,
                 toUnit
@@ -147,28 +150,28 @@ export class BmiController {
         }
     }
 
-    _convertHeightUsingStrategies(value, fromUnit, toUnit) {
+    #convertHeightUsingStrategies(value, fromUnit, toUnit) {
         if (fromUnit !== toUnit) {
-            return this._model._convertHeight(value, fromUnit, toUnit);
+            return this.#model._convertHeight(value, fromUnit, toUnit);
         }
         return value;
     }
 
-    _convertWeightUsingStrategies(value, fromUnit, toUnit) {
+    #convertWeightUsingStrategies(value, fromUnit, toUnit) {
         if (fromUnit !== toUnit) {
-            return this._model._convertWeight(value, fromUnit, toUnit);
+            return this.#model._convertWeight(value, fromUnit, toUnit);
         }
         return value;
     }
 
-    _updateUnitLabels() {
+    #updateUnitLabels() {
         const heightLabel = document.querySelector('label[for="height-input"] h3');
         const weightLabel = document.querySelector('label[for="weight-input"] h3');
         const heightInput = document.getElementById('height-input');
         const weightInput = document.getElementById('weight-input');
 
-        const heightUnit = this._model.getHeightUnit();
-        const weightUnit = this._model.getWeightUnit();
+        const heightUnit = this.#model.getHeightUnit();
+        const weightUnit = this.#model.getWeightUnit();
 
         if (heightLabel) heightLabel.textContent = `Height (${heightUnit})`;
         if (weightLabel) weightLabel.textContent = `Weight (${weightUnit})`;
@@ -176,7 +179,7 @@ export class BmiController {
         if (weightInput) weightInput.placeholder = `Weight in ${weightUnit}`;
     }
 
-    _updateToggleButton(unit) {
+    #updateToggleButton(unit) {
         const toggleText = document.getElementById('unit-toggle-text');
         const toggleButton = document.getElementById('unit-toggle-button');
 
@@ -186,22 +189,22 @@ export class BmiController {
         }
     }
 
-    _updateViewsForUnitChange(newUnit) {
-        this._views.forEach((view) => {
+    #updateViewsForUnitChange(newUnit) {
+        this.#views.forEach((view) => {
             if (typeof view.onUnitChange === 'function') {
                 view.onUnitChange(newUnit);
             }
         });
     }
 
-    _updateResultViews(result) {
-        this._updateResultNumber(result);
-        this._updateResultDetails(result);
-        this._updateResultPath(result);
-        this._hideDefaultContent();
+    #updateResultViews(result) {
+        this.#updateResultNumber(result);
+        this.#updateResultDetails(result);
+        this.#updateResultPath(result);
+        this.#hideDefaultContent();
     }
 
-    _updateResultNumber(data) {
+    #updateResultNumber(data) {
         const resultNumberEl = document.getElementById('result-number');
         const bmiValueEl = document.getElementById('bmi-value');
 
@@ -212,13 +215,13 @@ export class BmiController {
         }
     }
 
-    _updateResultDetails(data) {
+    #updateResultDetails(data) {
         const ageEl = document.getElementById('bmi-result-age');
         const idealWeightEl = document.getElementById('bmi-result-weight');
         const categoryEl = document.getElementById('bmi-result-desc-content');
 
         if (ageEl) {
-            const detailedAge = this._model.getDetailedAge();
+            const detailedAge = this.#model.getDetailedAge();
             ageEl.textContent = `${detailedAge.years} Years ${detailedAge.months} Months`;
         }
 
@@ -231,7 +234,7 @@ export class BmiController {
         }
     }
 
-    _updateResultPath(data) {
+    #updateResultPath(data) {
         const pathEl = document.getElementById('bmi-result-path');
         if (!pathEl) return;
 
@@ -248,7 +251,7 @@ export class BmiController {
         }
     }
 
-    _hideDefaultContent() {
+    #hideDefaultContent() {
         const defaultContent = document.getElementById('bmi-default-content');
         const defaultTitle = document.getElementById('result-default-title');
         const bmiResultDesc = document.getElementById('bmi-result-desc');
@@ -260,33 +263,33 @@ export class BmiController {
 
     }
 
-    _validateAndUpdateViews() {
-        this._views.forEach((view) => {
+    #validateAndUpdateViews() {
+        this.#views.forEach((view) => {
             if (typeof view.onDataChange === 'function') {
-                view.onDataChange(this._model.toJSON());
+                view.onDataChange(this.#model.toJSON());
             }
         });
     }
 
-    _handleValidationError(field, message) {
+    #handleValidationError(field, message) {
         console.warn(`Validation error for ${field}: ${message}`);
-        this._views.forEach((view) => {
+        this.#views.forEach((view) => {
             if (typeof view.onValidationError === 'function') {
                 view.onValidationError(field, message);
             }
         });
     }
 
-    _handleError(context, error) {
+    #handleError(context, error) {
         console.error(`${context}:`, error);
-        this._showErrorMessage(`${context}. Please try again.`);
+        this.#showErrorMessage(`${context}. Please try again.`);
     }
 
-    _showValidationMessage(message) {
+    #showValidationMessage(message) {
         alert(message);
     }
 
-    _showErrorMessage(message) {
+    #showErrorMessage(message) {
         alert(message);
     }
 }

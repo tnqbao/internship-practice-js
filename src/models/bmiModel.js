@@ -3,57 +3,65 @@ import { MetricStrategy } from '../strategies/metricStrategy.js';
 import { ImperialStrategy } from '../strategies/imperialStrategy.js';
 
 export class BmiModel {
+    #height = 0;
+    #weight = 0;
+    #age = 0;
+    #type = 'metric';
+    #strategy;
+    #observers = [];
+    #detailedAge;
+
     constructor({ height = 0, weight = 0, age = 0, type = 'metric' } = {}) {
-        this._height = height;
-        this._weight = weight;
-        this._age = age;
-        this._type = type;
-        this._strategy = this._createStrategy(type);
-        this._observers = [];
+        this.#height = height;
+        this.#weight = weight;
+        this.#age = age;
+        this.#type = type;
+        this.#strategy = this.#createStrategy(type);
+        this.#observers = [];
     }
 
-    get height() { return this._height; }
+    get height() { return this.#height; }
     set height(value) {
         const numValue = parseFloat(value);
         if (isNaN(numValue) || numValue <= 0) {
             throw new Error('Height must be a positive number');
         }
-        this._height = numValue;
-        this._notifyObservers('height', numValue);
+        this.#height = numValue;
+        this.#notifyObservers('height', numValue);
     }
 
-    get weight() { return this._weight; }
+    get weight() { return this.#weight; }
     set weight(value) {
         const numValue = parseFloat(value);
         if (isNaN(numValue) || numValue <= 0) {
             throw new Error('Weight must be a positive number');
         }
-        this._weight = numValue;
-        this._notifyObservers('weight', numValue);
+        this.#weight = numValue;
+        this.#notifyObservers('weight', numValue);
     }
 
-    get age() { return this._age; }
+    get age() { return this.#age; }
     set age(value) {
         const numValue = parseInt(value);
         if (isNaN(numValue) || numValue <= 0) {
             throw new Error('Age must be a positive number');
         }
-        this._age = numValue;
-        this._notifyObservers('age', numValue);
+        this.#age = numValue;
+        this.#notifyObservers('age', numValue);
     }
 
-    get type() { return this._type; }
+    get type() { return this.#type; }
     set type(value) {
         if (!['metric', 'imperial'].includes(value)) {
             throw new Error('Type must be either "metric" or "imperial"');
         }
-        const oldType = this._type;
-        this._type = value;
-        this._strategy = this._createStrategy(value);
-        this._notifyObservers('type', value, oldType);
+        const oldType = this.#type;
+        this.#type = value;
+        this.#strategy = this.#createStrategy(value);
+        this.#notifyObservers('type', value, oldType);
     }
 
-    _createStrategy(type) {
+    #createStrategy(type) {
         switch (type) {
             case 'metric':
                 return new MetricStrategy();
@@ -68,7 +76,7 @@ export class BmiModel {
         if (!this.isDataComplete()) {
             throw new Error('Incomplete data: height, weight, and age are required');
         }
-        return this._strategy.calculateBMI(this._height, this._weight);
+        return this.#strategy.calculateBMI(this.#height, this.#weight);
     }
 
     getBMICategory() {
@@ -80,42 +88,42 @@ export class BmiModel {
     }
 
     isValid() {
-        return this.isDataComplete() && this._strategy.isValid(this._height, this._weight);
+        return this.isDataComplete() && this.#strategy.isValid(this.#height, this.#weight);
     }
 
     isDataComplete() {
-        return this._height > 0 && this._weight > 0 && this._age > 0;
+        return this.#height > 0 && this.#weight > 0 && this.#age > 0;
     }
 
     getIdealWeightRange() {
-        if (!this._height) {
+        if (!this.#height) {
             throw new Error('Height is required to calculate ideal weight range');
         }
-        return this._strategy.getIdealWeightRange(this._height);
+        return this.#strategy.getIdealWeightRange(this.#height);
     }
 
     getWeightUnit() {
-        return this._strategy.getWeightUnit();
+        return this.#strategy.getWeightUnit();
     }
 
     getHeightUnit() {
-        return this._strategy.getHeightUnit();
+        return this.#strategy.getHeightUnit();
     }
 
     getUnitType() {
-        return this._strategy.getUnitType();
+        return this.#strategy.getUnitType();
     }
 
     addObserver(observer) {
-        this._observers.push(observer);
+        this.#observers.push(observer);
     }
 
     removeObserver(observer) {
-        this._observers = this._observers.filter(obs => obs !== observer);
+        this.#observers = this.#observers.filter(obs => obs !== observer);
     }
 
-    _notifyObservers(property, newValue, oldValue = null) {
-        this._observers.forEach(observer => {
+    #notifyObservers(property, newValue, oldValue = null) {
+        this.#observers.forEach(observer => {
             if (typeof observer.onModelChange === 'function') {
                 observer.onModelChange(property, newValue, oldValue);
             }
@@ -123,19 +131,19 @@ export class BmiModel {
     }
 
     convertToUnit(targetUnit) {
-        if (this._type === targetUnit) return;
+        if (this.#type === targetUnit) return;
 
-        if (this._height > 0) {
-            this._height = this._convertHeight(this._height, this._type, targetUnit);
+        if (this.#height > 0) {
+            this.#height = this.#convertHeight(this.#height, this.#type, targetUnit);
         }
-        if (this._weight > 0) {
-            this._weight = this._convertWeight(this._weight, this._type, targetUnit);
+        if (this.#weight > 0) {
+            this.#weight = this.#convertWeight(this.#weight, this.#type, targetUnit);
         }
 
         this.type = targetUnit;
     }
 
-    _convertHeight(value, fromUnit, toUnit) {
+    #convertHeight(value, fromUnit, toUnit) {
         if (fromUnit === 'metric' && toUnit === 'imperial') {
             return value / 2.54;
         } else if (fromUnit === 'imperial' && toUnit === 'metric') {
@@ -144,7 +152,7 @@ export class BmiModel {
         return value;
     }
 
-    _convertWeight(value, fromUnit, toUnit) {
+    #convertWeight(value, fromUnit, toUnit) {
         if (fromUnit === 'metric' && toUnit === 'imperial') {
             return value * 2.20462;
         } else if (fromUnit === 'imperial' && toUnit === 'metric') {
@@ -170,7 +178,6 @@ export class BmiModel {
             monthDiff += 12;
         }
 
-        // Adjust for days in month
         if (today.getDate() < day) {
             monthDiff--;
             if (monthDiff < 0) {
@@ -188,22 +195,22 @@ export class BmiModel {
 
     setAgeFromDateOfBirth(dateOfBirth) {
         const ageData = this.calculateAgeFromDateOfBirth(dateOfBirth);
-        this.age = ageData.years; // Set years for BMI calculation
-        this._detailedAge = ageData; // Store detailed age info
-        this._notifyObservers('age', ageData.years, null);
+        this.age = ageData.years;
+        this.#detailedAge = ageData;
+        this.#notifyObservers('age', ageData.years, null);
         return ageData;
     }
 
     getDetailedAge() {
-        return this._detailedAge || { years: this._age, months: 0 };
+        return this.#detailedAge || { years: this.#age, months: 0 };
     }
 
     toJSON() {
         return {
-            height: this._height,
-            weight: this._weight,
-            age: this._age,
-            type: this._type,
+            height: this.#height,
+            weight: this.#weight,
+            age: this.#age,
+            type: this.#type,
             bmi: this.isDataComplete() ? this.calculateBMI() : null,
             category: this.isDataComplete() ? this.getBMICategory() : null,
             isValid: this.isValid()

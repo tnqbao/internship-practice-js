@@ -11,7 +11,7 @@ export function createHeader(controller = null) {
             this.isInitialized = false;
         }
 
-        _createHeaderComponents() {
+        #createHeaderComponents() {
             const headerInfo = createHeaderInformation();
             const logo = createLogo();
             const repositoryButton = createRepositoryButton();
@@ -26,7 +26,7 @@ export function createHeader(controller = null) {
         }
 
         render() {
-            const { headerInfo, headerNavbar } = this._createHeaderComponents();
+            const { headerInfo, headerNavbar } = this.#createHeaderComponents();
 
             const header = customizeElement(document.createElement('header'), {
                 className: ['header', 'flex','flex-wrap', 'justify-between', 'items-center', 'bg-gray-800', 'text-white'],

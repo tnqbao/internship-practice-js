@@ -8,15 +8,13 @@ export function createFooter(controller = null) {
             this.isInitialized = false;
         }
 
-        _createPhoneContact() {
+        #createPhoneContact() {
             const phoneContact = customizeElement(document.createElement('div'), {
                 className: ['phone-contact', 'flex', 'items-center', 'gap-2'],
                 id: 'phone-contact',
                 innerHTML: `
                 <div class="phone-icon flex items-center justify-center">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" viewBox="0 0 13.922 13.922">
-                        <path id="Контур_7" data-name="Контур 7" d="M2,2.87A.87.87,0,0,1,2.87,2H4.744a.87.87,0,0,1,.858.727l.644,3.859a.87.87,0,0,1-.47.922l-1.347.673a9.6,9.6,0,0,0,5.312,5.312l.673-1.347a.87.87,0,0,1,.921-.47l3.859.644a.87.87,0,0,1,.727.858v1.873a.87.87,0,0,1-.87.87h-1.74A11.311,11.311,0,0,1,2,4.61Z" transform="translate(-2 -2)" fill="#a4c8ff"/>
-                    </svg>
+                    <img src="https://cdn.gauas.online/internship/phone.svg" alt="phone-button"/>
                 </div>
                 <span class="phone-number text-xxl">1900 1717</span>
                 `,
@@ -26,8 +24,8 @@ export function createFooter(controller = null) {
             return phoneContact;
         }
 
-        _createReferencesInformation() {
-            const phoneContact = this._createPhoneContact();
+        #createReferencesInformation() {
+            const phoneContact = this.#createPhoneContact();
 
             const referencesInformation = customizeElement(document.createElement('div'), {
                 className: ['references-information', 'flex', 'flex-col', 'gap-4'],
@@ -39,9 +37,9 @@ export function createFooter(controller = null) {
             return referencesInformation;
         }
 
-        _createFooterInfo() {
+        #createFooterInfo() {
             const logo = createLogo();
-            const referencesInformation = this._createReferencesInformation();
+            const referencesInformation = this.#createReferencesInformation();
 
             const footerInfo = customizeElement(document.createElement('div'), {
                 className: ['footer-information', 'flex', 'container', 'w-full', 'flex-1', 'justify-between', 'items-center'],
@@ -55,7 +53,7 @@ export function createFooter(controller = null) {
         }
 
         render() {
-            const footerInfo = this._createFooterInfo();
+            const footerInfo = this.#createFooterInfo();
             const footerWrapper = wrapElement(footerInfo, 'div', {
                 className: ['footer-information-wrapper', 'flex', 'flex-col', 'items-center', 'justify-center', 'w-full', 'p-md'],
                 id: 'footer',

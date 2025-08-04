@@ -16,16 +16,11 @@ spec:
       containers:
         - name: practice-js-service
           image: iamqbao/agility-practice-js:latest
-#          envFrom:
-#            - configMapRef:
-#                name: agility-${DEPLOY_ENV}-config
-#            - secretRef:
-#                name: agility-${DEPLOY_ENV}-secret
           resources:
             requests:
-              cpu: "100m"
-              memory: "200Mi"
+              cpu: "0.1"
+              memory: "100Mi"
             limits:
-              cpu: "200m"
-              memory: "300Mi"
+              cpu: "0.1"
+              memory: "200Mi"
 ---
