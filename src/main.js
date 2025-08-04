@@ -14,10 +14,10 @@ class BMIApplication {
 
     async initialize() {
         try {
-            this._initializeController();
-            this._initializeViews();
-            this._setupLayout();
-            this._bindEvents();
+            this.#initializeController();
+            this.#initializeViews();
+            this.#setupLayout();
+            this.#bindEvents();
 
             this.isInitialized = true;
 
@@ -26,7 +26,7 @@ class BMIApplication {
         }
     }
 
-    _initializeController() {
+    #initializeController() {
         this.controller = new BmiController();
 
         this.controller.onError = (error) => {
@@ -34,12 +34,12 @@ class BMIApplication {
         };
     }
 
-    _initializeViews() {
-        this._createLayoutViews();
-        this._createApplicationViews();
+    #initializeViews() {
+        this.#createLayoutViews();
+        this.#createApplicationViews();
     }
 
-    _createLayoutViews() {
+    #createLayoutViews() {
         const headerElement = document.getElementById('header');
         const footerElement = document.getElementById('footer');
 
@@ -56,13 +56,13 @@ class BMIApplication {
         }
     }
 
-    _createApplicationViews() {
-        this._createFormView();
-        this._createResultView();
-        this._createInformationView();
+    #createApplicationViews() {
+        this.#createFormView();
+        this.#createResultView();
+        this.#createInformationView();
     }
 
-    _createFormView() {
+    #createFormView() {
         const formSection = document.getElementById('form-section');
         if (formSection) {
             const formView = createFormView(this.controller);
@@ -71,7 +71,7 @@ class BMIApplication {
         }
     }
 
-    _createResultView() {
+    #createResultView() {
         const resultSection = document.getElementById('result-section');
         if (resultSection) {
             const resultView = createResultView(this.controller);
@@ -80,7 +80,7 @@ class BMIApplication {
         }
     }
 
-    _createInformationView() {
+    #createInformationView() {
         const infoSection = document.getElementById('info-section');
         if (infoSection) {
             const infoView = createInformation(this.controller);
@@ -89,31 +89,31 @@ class BMIApplication {
         }
     }
 
-    _setupLayout() {
-        this._setupBMIContent();
-        this._setupMainContent();
+    #setupLayout() {
+        this.#setupBMIContent();
+        this.#setupMainContent();
     }
 
-    _setupBMIContent() {
+    #setupBMIContent() {
         const bmiContent = document.getElementById('bmi-content');
         if (bmiContent) {
             bmiContent.classList.add('flex', 'flex-col', 'items-center', 'justify-center');
         }
     }
 
-    _setupMainContent() {
+    #setupMainContent() {
         const mainContent = document.getElementById('main-content');
         if (mainContent) {
             mainContent.classList.add('flex', 'items-start', 'justify-center', 'flex-wrap', 'container', 'm-t-lg', 'gap-4');
         }
     }
 
-    _bindEvents() {
-        this._bindKeyboardEvents();
-        this._bindWindowEvents();
+    #bindEvents() {
+        this.#bindKeyboardEvents();
+        this.#bindWindowEvents();
     }
 
-    _bindKeyboardEvents() {
+    #bindKeyboardEvents() {
         document.addEventListener('keydown', (event) => {
             if (event.ctrlKey || event.metaKey) {
                 switch (event.key) {
@@ -130,13 +130,13 @@ class BMIApplication {
         });
     }
 
-    _bindWindowEvents() {
+    #bindWindowEvents() {
         window.addEventListener('beforeunload', () => {
-            this._cleanup();
+            this.#cleanup();
         });
     }
 
-    _cleanup() {
+    #cleanup() {
         if (this.controller) {
             this.views.forEach((view, name) => {
                 this.controller.unregisterView(name);

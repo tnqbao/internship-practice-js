@@ -6,7 +6,7 @@ import { createBMIDefault } from "./components/bmiDefaultContent.js";
 
 export function createResultView(controller = null) {
     class ResultView {
-        constructor(controller) {
+        constructor() {
             this.elements = {};
         }
 
@@ -15,7 +15,7 @@ export function createResultView(controller = null) {
         }
 
 
-        _createResultTitle() {
+        #createResultTitle() {
             const resultTitle = customizeElement(document.createElement('h2'), {
                 id: 'result-default-title',
                 className: ['text-center', 'mb-4', 'font-bold', 'color-primary'],
@@ -26,7 +26,7 @@ export function createResultView(controller = null) {
             return resultTitle;
         }
 
-        _createResultNumber() {
+        #createResultNumber() {
             const resultNumber = customizeElement(document.createElement('div'), {
                 className: ['flex', 'flex-col', 'items-center', 'hidden', 'justify-center', 'gap-2'],
                 id: 'result-number',
@@ -48,7 +48,7 @@ export function createResultView(controller = null) {
             return resultNumber;
         }
 
-        _createBMIComponents() {
+        #createBMIComponents() {
             const resultPath = createBmiResultPath();
             const resultIdeal = createBMIResultIdeal();
             const resultDesc = createBMIResultDesc();
@@ -69,9 +69,9 @@ export function createResultView(controller = null) {
         }
 
         render() {
-            const resultTitle = this._createResultTitle();
-            const resultNumber = this._createResultNumber();
-            const { resultPath, resultIdeal, resultDesc, defaultContent } = this._createBMIComponents();
+            const resultTitle = this.#createResultTitle();
+            const resultNumber = this.#createResultNumber();
+            const { resultPath, resultIdeal, resultDesc, defaultContent } = this.#createBMIComponents();
 
             const resultWrapper = customizeElement(document.createElement('div'), {
                 className: ['bmi-result-wrapper', 'flex-col', 'items-center', 'justify-between', 'w-full', 'h-full', 'p-lg','bg-secondary', 'rounded-1'],

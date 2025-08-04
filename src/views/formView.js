@@ -16,44 +16,44 @@ export function createFormView(controller) {
 
         onUnitChange(newUnit) {
             this.currentUnit = newUnit;
-            this._updateValidationRules();
+            this.#updateValidationRules();
         }
 
         onDataChange(modelData) {
-            this._updateFormValidation(modelData);
+            this.#updateFormValidation(modelData);
         }
 
         onValidationError(field, message) {
-            this._showFieldError(field, message);
+            this.#showFieldError(field, message);
         }
 
-        _handleHeightChange(value) {
+        #handleHeightChange(value) {
             if (value && !isNaN(value)) {
                 this.controller.updateHeight(parseFloat(value));
             }
         }
 
-        _handleWeightChange(value) {
+        #handleWeightChange(value) {
             if (value && !isNaN(value)) {
                 this.controller.updateWeight(parseFloat(value));
             }
         }
 
-        _handleAgeChange(dateOfBirth) {
+        #handleAgeChange(dateOfBirth) {
             if (dateOfBirth) {
                 this.controller.updateAge(dateOfBirth);
             }
         }
 
-        _handleUnitToggle() {
+        #handleUnitToggle() {
             this.controller.toggleUnit();
         }
 
-        _handleCalculate() {
+        #handleCalculate() {
             this.controller.calculateBMI();
         }
 
-        _updateValidationRules() {
+        #updateValidationRules() {
             const heightInput = this.elements.heightInput;
             const weightInput = this.elements.weightInput;
 
@@ -66,13 +66,13 @@ export function createFormView(controller) {
             }
         }
 
-        _updateFormValidation(modelData) {
-            this._updateFieldValidation('height', modelData.height > 0);
-            this._updateFieldValidation('weight', modelData.weight > 0);
-            this._updateFieldValidation('age', modelData.age > 0);
+        #updateFormValidation(modelData) {
+            this.#updateFieldValidation('height', modelData.height > 0);
+            this.#updateFieldValidation('weight', modelData.weight > 0);
+            this.#updateFieldValidation('age', modelData.age > 0);
         }
 
-        _updateFieldValidation(fieldName, isValid) {
+        #updateFieldValidation(fieldName, isValid) {
             const input = this.elements[`${fieldName}Input`];
             if (input) {
                 input.classList.toggle('valid', isValid);
@@ -80,11 +80,11 @@ export function createFormView(controller) {
             }
         }
 
-        _showFieldError(field, message) {
+        #showFieldError(field, message) {
             console.warn(`${field}: ${message}`);
         }
 
-        _createAgeField() {
+        #createAgeField() {
             const ageField = customizeElement(document.createElement('div'), {
                 className: ['flex', 'flex-col', 'flex-1', 'flex-wrap', 'm-b-sm'],
                 children: [
@@ -100,7 +100,7 @@ export function createFormView(controller) {
                         id: 'age-input',
                         dataset: { component: 'age-input' },
                         events: {
-                            change: (event) => this._handleAgeChange(event.target.value),
+                            change: (event) => this.#handleAgeChange(event.target.value),
                         }
                     })
                 ]
@@ -110,7 +110,7 @@ export function createFormView(controller) {
             return ageField;
         }
 
-        _createHeightField() {
+        #createHeightField() {
             const heightField = customizeElement(document.createElement('div'), {
                 className: ['flex', 'flex-col', 'flex-1', 'flex-wrap', 'm-b-md'],
                 children: [
@@ -129,8 +129,8 @@ export function createFormView(controller) {
                         min: validation.metric.height.min,
                         max: validation.metric.height.max,
                         events: {
-                            input: (event) => this._handleHeightChange(event.target.value),
-                            change: (event) => this._handleHeightChange(event.target.value)
+                            input: (event) => this.#handleHeightChange(event.target.value),
+                            change: (event) => this.#handleHeightChange(event.target.value)
                         }
                     })
                 ]
@@ -140,7 +140,7 @@ export function createFormView(controller) {
             return heightField;
         }
 
-        _createWeightField() {
+        #createWeightField() {
             const weightField = customizeElement(document.createElement('div'), {
                 className: ['flex', 'flex-col', 'flex-1', 'flex-wrap', 'm-b-xs'],
                 children: [
@@ -159,8 +159,8 @@ export function createFormView(controller) {
                         min: validation.metric.weight.min,
                         max: validation.metric.weight.max,
                         events: {
-                            input: (event) => this._handleWeightChange(event.target.value),
-                            change: (event) => this._handleWeightChange(event.target.value)
+                            input: (event) => this.#handleWeightChange(event.target.value),
+                            change: (event) => this.#handleWeightChange(event.target.value)
                         }
                     })
                 ]
@@ -170,7 +170,7 @@ export function createFormView(controller) {
             return weightField;
         }
 
-        _createUnitToggleButton() {
+        #createUnitToggleButton() {
             const unitToggleButton = customizeElement(document.createElement('button'), {
                 className: ['unit-toggle-button', 'flex', 'w-half', 'flex-center', 'bg-secondary', 'color-primary', 'p-sm', 'rounded', 'mt-4'],
                 innerHTML: '<span id="unit-toggle-text">Switch to Imperial</span>',
@@ -179,7 +179,7 @@ export function createFormView(controller) {
                 events: {
                     click: (event) => {
                         event.preventDefault();
-                        this._handleUnitToggle();
+                        this.#handleUnitToggle();
                     }
                 }
             });
@@ -188,7 +188,7 @@ export function createFormView(controller) {
             return unitToggleButton;
         }
 
-        _createCalculateButton() {
+        #createCalculateButton() {
             const calculateButton = customizeElement(document.createElement('button'), {
                 className: ['calculate-button', 'flex', 'w-half', 'flex-center', 'bg-primary', 'color-secondary', 'p-sm', 'rounded', 'mt-4'],
                 innerHTML: '<span>Calculate BMI</span>',
@@ -197,7 +197,7 @@ export function createFormView(controller) {
                 events: {
                     click: (event) => {
                         event.preventDefault();
-                        this._handleCalculate();
+                        this.#handleCalculate();
                     }
                 }
             });
@@ -208,11 +208,11 @@ export function createFormView(controller) {
 
         render() {
             const genderToggle = createGenderToggle();
-            const ageField = this._createAgeField();
-            const heightField = this._createHeightField();
-            const weightField = this._createWeightField();
-            const calculateButton = this._createCalculateButton();
-            const unitToggleButton = this._createUnitToggleButton();
+            const ageField = this.#createAgeField();
+            const heightField = this.#createHeightField();
+            const weightField = this.#createWeightField();
+            const calculateButton = this.#createCalculateButton();
+            const unitToggleButton = this.#createUnitToggleButton();
 
             const formWrapper = customizeElement(document.createElement('div'), {
                 className: ['bmi-form-wrapper', 'flex', 'flex-col', 'container', 'flex-wrap', 'items-center', 'justify-center', 'w-full', 'h-full', 'p-lg', 'rounded-6', 'gap-sm'],
