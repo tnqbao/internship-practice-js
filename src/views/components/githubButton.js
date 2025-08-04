@@ -6,7 +6,7 @@ export function createRepositoryButton() {
 
     git.innerHTML = `
       <a class="Github Repository" href="https://github.com/tnqbao/internship-practice-js" aria-label="GitHub Repository" target="_blank" rel="noopener noreferrer">
-        <img src="https://cdn.gauas.online/internship/github-icon.svg" alt="GitHub Icon">
+        <img src="https://cdn.gauas.online/images/internship/github-icon.svg" alt="GitHub Icon">
       </a>
   `;
 

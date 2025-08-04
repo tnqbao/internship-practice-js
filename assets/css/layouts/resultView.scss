@@ -1,7 +1,11 @@
 #result-section {
   width: 100%;
+  padding: 1rem;
+}
+
+.bmi-result-wrapper {
   border: 2px solid #dee2e6;
-  border-radius: 12px;
+  border-radius: 1rem;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
   transition: box-shadow 0.3s ease;
 }

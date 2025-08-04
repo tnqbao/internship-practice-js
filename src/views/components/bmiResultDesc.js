@@ -18,7 +18,7 @@ export function createBMIResultDesc() {
         className: ['bmi-result-description-section', 'text-secondary'],
         id: 'bmi-result-description-section',
         innerHTML: `
-            <p id='bmi-result-description' class='text-secondary text-start p-md'>
+            <p id='bmi-result-description' class='text-secondary text-start'>
                 The body is developing proportionally and within a healthy range.
             </p>
         `,
@@ -28,7 +28,7 @@ export function createBMIResultDesc() {
         className: ['bmi-result-recommendation-desc', 'text-secondary'],
         id: 'bmi-result-recommendation-desc',
         innerHTML: `
-            <span class='color-primary'>
+            <span class='color-primary m-b-2'>
                 <strong>
                 Recommendations:  
                 </strong> 
