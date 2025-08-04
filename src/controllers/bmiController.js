@@ -1,4 +1,5 @@
 import {BmiModel} from '../models/bmiModel.js';
+import bmiRanges from '../config/bmiRanges.json';
 
 export class BmiController {
     #model;
@@ -103,6 +104,8 @@ export class BmiController {
         const category = this.#model.getBMICategory();
         const idealRange = this.#model.getIdealWeightRange();
 
+        const categoryData = bmiRanges.find(range => range.id === category.id);
+
         return {
             bmi: bmi.toFixed(1),
             label: category.label,
@@ -115,7 +118,9 @@ export class BmiController {
             age: this.#model.age,
             unit: this.#model.type,
             weightUnit: this.#model.getWeightUnit(),
-            heightUnit: this.#model.getHeightUnit()
+            heightUnit: this.#model.getHeightUnit(),
+            description: categoryData?.description || '',
+            recommendations: categoryData?.recommendation || []
         };
     }
 
@@ -219,6 +224,8 @@ export class BmiController {
         const ageEl = document.getElementById('bmi-result-age');
         const idealWeightEl = document.getElementById('bmi-result-weight');
         const categoryEl = document.getElementById('bmi-result-desc-content');
+        const descriptionEl = document.getElementById('bmi-result-description');
+        const recommendationListEl = document.getElementById('recommendation-list');
 
         if (ageEl) {
             const detailedAge = this.#model.getDetailedAge();
@@ -228,9 +235,24 @@ export class BmiController {
         if (idealWeightEl) {
             idealWeightEl.textContent = `${data.idealRange.min} ${data.weightUnit} to ${data.idealRange.max} ${data.weightUnit}`;
         }
+
         if (categoryEl) {
             categoryEl.textContent = data.label;
             categoryEl.style.color = data.color;
+        }
+
+        if (descriptionEl && data.description) {
+            descriptionEl.textContent = data.description;
+        }
+
+        if (recommendationListEl && data.recommendations && data.recommendations.length > 0) {
+            recommendationListEl.innerHTML = '';
+            data.recommendations.forEach(rec => {
+                const listItem = document.createElement('li');
+                listItem.innerHTML = `<strong>${rec.title}:</strong> ${rec.description}`;
+                listItem.className = 'mb-2';
+                recommendationListEl.appendChild(listItem);
+            });
         }
     }
 

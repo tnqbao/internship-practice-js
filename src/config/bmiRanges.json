@@ -4,55 +4,175 @@
     "label": "Severe Thinness",
     "min": 0,
     "max": 16,
-    "color": "#fe0100"
+    "color": "#fe0100",
+    "description": "Severe thinness can lead to a compromised immune system, increased susceptibility to infections, anemia, osteoporosis, muscle wasting, menstrual irregularities in females, and psychological issues such as anxiety and depression.",
+    "recommendation": [
+      {
+        "title": "Consult with a specialist",
+        "description": "Seek assistance from a healthcare provider and nutritionist to establish an appropriate dietary plan, supplement micronutrients, and closely monitor the individual’s health status."
+      },
+        {
+            "title": "Dietary adjustments",
+            "description": "Provide a high-calorie and nutrient-dense diet, particularly rich in protein, healthy fats, vitamins, and minerals, to support recovery."
+        },
+        {
+            "title": "Encourage light physical activity",
+            "description": " Promote gentle physical activities to help restore muscle mass and maintain overall health."
+        }
+    ]
   },
   {
     "id": "thinness",
     "label": "Thinness",
     "min": 16,
     "max": 16.9,
-    "color": "#fe9900"
+    "color": "#fe9900",
+    "description": "Thinness can lead to fatigue, reduced immune function, increased susceptibility to infections, digestive issues, poor nutrient absorption, hair loss, dry skin, and delayed wound healing.",
+    "recommendation": [
+      {
+        "title": "Consultation with a physician and nutrition expert",
+        "description": "Seek advice from a healthcare provider to determine the underlying causes and develop an appropriate nutritional plan."
+      },
+      {
+        "title": "Nutrient-rich diet",
+        "description": "Ensure adequate intake of calories, proteins, healthy fats, vitamins, and minerals. Divide meals into smaller, more frequent portions and prioritize energy-dense foods."
+      },
+      {
+        "title": "Healthy lifestyle",
+        "description": "Incorporate light physical activity and ensure sufficient rest and sleep to support overall health and recovery."
+      }
+    ]
   },
   {
     "id": "underweight",
     "label": "Underweight",
     "min": 17,
     "max": 18.4,
-    "color": "#ffbc7c"
+    "color": "#ffbc7c",
+    "description": "Underweight may impact the body’s immune function and recovery capacity.",
+    "recommendation": [
+      {
+        "title": "Nutritional improvement",
+        "description": "Increase intake of nutrient-dense foods, especially those rich in protein, healthy fats, vitamins, and minerals."
+      },
+      {
+        "title": "Consultation with a physician or nutritionist",
+        "description": "Discuss the nutritional status with a healthcare professional and develop a plan for adequate nutrient supplementation."
+      },
+      {
+        "title": "Healthy lifestyle",
+        "description": "Ensure adequate sleep, engage in regular physical activity, and manage stress levels to support overall health."
+      }
+    ]
   },
   {
     "id": "normal",
     "label": "Normal",
     "min": 18.5,
     "max": 24.9,
-    "color": "#01b203"
+    "color": "#01b203",
+    "description": "The body is developing proportionally and within a healthy range.",
+    "recommendation": [
+      {
+        "title": "Maintain a balanced diet",
+        "description": "Continue consuming a variety of nutrient-rich foods, including adequate amounts of protein, healthy fats, vitamins, and minerals to support overall health."
+      },
+      {
+        "title": "Encourage physical activity",
+        "description": "Aim for at least 150 minutes of exercise per week, which is recommended for maintaining cardiovascular health and overall well-being."
+      },
+      {
+        "title": "Regular health monitoring",
+        "description": "Schedule routine health check-ups to detect potential health issues early and take timely corrective measures if necessary."
+      }
+    ]
   },
   {
     "id": "pre-obesity",
     "label": "Pre-obesity",
     "min": 25,
     "max": 29.9,
-    "color": "#cc99fe"
+    "color": "#cc99fe",
+    "description": "Pre-obesity increases the risk of developing various health conditions, including type 2 diabetes, high blood pressure, cardiovascular disease, dyslipidemia, fatty liver disease, joint problems, sleep apnea, and certain types of cancer.",
+    "recommendation": [
+      {
+        "title": "Dietary adjustments",
+        "description": "Reduce the intake of high-calorie, sugary, and unhealthy fat-laden foods. Increase the consumption of vegetables, fruits, whole grains, and lean protein sources to improve nutritional intake and support weight loss."
+      },
+      {
+        "title": "Encourage physical activity",
+        "description": "Engage in at least 150 minutes of moderate-intensity exercise per week to help burn calories and maintain a stable weight."
+      },
+      {
+        "title": "Stress and sleep management",
+        "description": "Manage stress effectively and ensure sufficient sleep to support the weight loss process and overall well-being."
+      }
+    ]
   },
   {
     "id": "class-1-obesity",
     "label": "Class 1 Obesity",
     "min": 30,
     "max": 34.9,
-    "color": "#993365"
+    "color": "#993365",
+    "description": "Class 1 obesity increases the risk of developing a variety of health conditions, including type 2 diabetes, cardiovascular disease, high blood pressure, dyslipidemia, fatty liver disease, joint problems, sleep apnea, and certain cancers.",
+    "recommendation": [
+      {
+        "title": "Consult a healthcare provider or nutritionist",
+        "description": "Schedule an appointment to assess health status and receive guidance on a balanced diet and safe, effective weight loss plan."
+      },
+      {
+        "title": "Dietary modifications",
+        "description": "Reduce caloric intake and limit foods high in unhealthy fats. Increase the consumption of vegetables, fruits, and whole grains. Consider smaller, more frequent meals to help control food intake."
+      },
+      {
+        "title": "Promote physical activity",
+        "description": "Engage in appropriate physical activities, such as walking, running, swimming, or muscle-strengthening exercises, to burn excess calories and improve overall fitness."
+      }
+    ]
   },
   {
     "id": "class-2-obesity",
     "label": "Class 2 Obesity",
     "min": 35,
     "max": 39.9,
-    "color": "#81017f"
+    "color": "#81017f",
+    "description": "Class 2 obesity significantly increases the risk of developing health conditions such as Type 2 diabetes, cardiovascular disease, hypertension, dyslipidemia, fatty liver disease, joint problems, sleep apnea, stroke, and certain types of cancer.",
+    "recommendation": [
+      {
+        "title": "Strict dietary plan",
+        "description": "Significantly reduce calorie intake, particularly processed foods, sugars, and unhealthy fats. Increase the consumption of vegetables, fruits, lean proteins, and whole grains."
+      },
+      {
+        "title": "Increase physical activity",
+        "description": "Engage in at least 150 minutes of physical exercise each week. Consider consulting a physician or fitness trainer to develop an appropriate exercise plan."
+      },
+      {
+        "title": "Specialized medical consultation",
+        "description": "See a doctor to assess the associated health risks. Medical or surgical weight loss interventions may be considered if necessary."
+      }
+    ]
   },
   {
     "id": "class-3-obesity",
     "label": "Class 3 Obesity",
     "min": 40,
     "max": 999,
-    "color": "#4a0e4e"
+    "color": "#4a0e4e",
+    "description": "Class 3 obesity significantly increases the risk of developing serious health conditions such as type 2 diabetes, cardiovascular disease, stroke, sleep apnea, joint problems, and many other serious health issues.",
+    "recommendation": [
+      {
+        "title": "Strict and scientific dietary plan",
+        "description": "Follow a calorie-restricted diet focused on nutrient-dense foods such as vegetables, fruits, whole grains, and lean proteins."
+      },
+      {
+        "title": "Increase physical activity with supervision",
+        "description": "Start with light exercises and gradually increase intensity as directed by a physician or trainer."
+      },
+      {
+        "title": "Specialized medical intervention",
+        "description": "Consult a specialist to assess your overall health condition and consider treatment options such as weight loss surgery or pharmacological interventions."
+      }
+    ]
   }
 ]
