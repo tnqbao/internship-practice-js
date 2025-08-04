@@ -14,7 +14,17 @@ export function createBMIResultDesc() {
         `,
     });
 
-    const recommendationDesc = customizeElement(document.createElement('p'), {
+    const descriptionSection = customizeElement(document.createElement('div'), {
+        className: ['bmi-result-description-section', 'text-secondary'],
+        id: 'bmi-result-description-section',
+        innerHTML: `
+            <p id='bmi-result-description' class='text-secondary text-start p-md'>
+                The body is developing proportionally and within a healthy range.
+            </p>
+        `,
+    });
+
+    const recommendationDesc = customizeElement(document.createElement('div'), {
         className: ['bmi-result-recommendation-desc', 'text-secondary'],
         id: 'bmi-result-recommendation-desc',
         innerHTML: `
@@ -24,10 +34,6 @@ export function createBMIResultDesc() {
                 </strong> 
             </span>
             <ul id='recommendation-list' class="p-l-xl">
-                <li >Maintain a balanced diet.</li>
-                <li>Engage in regular physical activity.</li>
-                <li>Monitor your weight regularly.</li>
-                <li>Consult with a healthcare provider for personalized advice.</li>
             </ul>
         `,
     });
@@ -37,6 +43,7 @@ export function createBMIResultDesc() {
         id: 'bmi-result-desc',
         children: [
             assessmentDesc,
+            descriptionSection,
             recommendationDesc
         ],
     });

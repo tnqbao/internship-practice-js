@@ -58,6 +58,8 @@ export function createResultView(controller = null) {
             this.elements.idealWeightElement = resultIdeal.querySelector('#bmi-result-weight');
             this.elements.ageElement = resultIdeal.querySelector('#bmi-result-age');
             this.elements.categoryElement = resultDesc.querySelector('#bmi-result-desc-content');
+            this.elements.descriptionElement = resultDesc.querySelector('#bmi-result-description');
+            this.elements.recommendationListElement = resultDesc.querySelector('#recommendation-list');
             this.elements.defaultContent = defaultContent;
 
             return {
