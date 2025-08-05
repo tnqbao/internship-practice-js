@@ -11,12 +11,12 @@
   },
   "imperial": {
     "height": {
-      "min": 12,
-      "max": 98
+      "min": 11.8,
+      "max": 98.4
     },
     "weight": {
       "min": 1.1,
-      "max": 660
+      "max": 661.4
     }
   }
 }
