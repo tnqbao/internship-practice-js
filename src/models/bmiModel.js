@@ -1,6 +1,6 @@
 import bmiRanges from '../config/bmiRanges.json';
-import { MetricStrategy } from '../strategies/metricStrategy.js';
-import { ImperialStrategy } from '../strategies/imperialStrategy.js';
+import { MetricStrategy } from '../utils/strategies/metricStrategy.js';
+import { ImperialStrategy } from '../utils/strategies/imperialStrategy.js';
 
 export class BmiModel {
     #height = 0;
