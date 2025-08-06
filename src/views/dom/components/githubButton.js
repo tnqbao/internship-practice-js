@@ -1,4 +1,4 @@
-import {customizeElement} from "../../utils/handleElement.js";
+import {customizeElement} from "../../../utils/handleElement.js";
 
 export function createRepositoryButton() {
     const git = document.createElement('div');

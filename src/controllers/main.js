@@ -1,0 +1,1 @@
+export { BmiController } from './bmiController.js';

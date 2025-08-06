@@ -75,14 +75,17 @@ export function customizeElement(element, options = {}) {
         throw new Error('First parameter must be a valid HTMLElement');
     }
 
-    const directProps = [
-        'id', 'step', 'type', 'value', 'name', 'src', 'alt', 'title',
-        'disabled', 'checked', 'required', 'multiple', 'min', 'max',
-        'href', 'target', 'rel', 'placeholder','htmlFor','d', 'stroke', 'strokeWidth', 'fill', 'viewBox', 'width', 'height', 'xmlns','innerText', 'title',
-        'ariaLabel', 'ariaHidden', 'ariaRole', 'ariaControls', 'ariaExpanded', 'ariaLabelledBy', 'ariaDescribedBy'
-    ];
-    directProps.forEach(prop => {
-        if (options[prop] !== undefined) element[prop] = options[prop];
+    const specialProps = ['className', 'attributes', 'dataset', 'styles', 'events', 'textContent', 'innerHTML', 'children'];
+
+    // Set all direct properties except the special ones
+    Object.entries(options).forEach(([prop, value]) => {
+        if (specialProps.includes(prop)) return;
+
+        try {
+            element[prop] = value;
+        } catch {
+            console.warn(`Failed to set property "${prop}" on element`, value);
+        }
     });
 
     if (options.className) {
@@ -132,4 +135,3 @@ export function customizeElement(element, options = {}) {
 
     return element;
 }
-

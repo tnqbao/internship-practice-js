@@ -1,8 +1,8 @@
-import { createHeader } from './views/header.js';
-import { createFooter } from './views/footer.js';
-import { createFormView } from './views/formView.js';
-import { createResultView } from './views/resultView.js';
-import { createInformation } from './views/information.js';
+import { createHeader } from './views/dom/header.js';
+import { createFooter } from './views/dom/footer.js';
+import { createFormView } from './views/dom/formView.js';
+import { createResultView } from './views/dom/resultView.js';
+import { createInformation } from './views/dom/information.js';
 import { BmiController } from './controllers/bmiController.js';
 
 class BMIApplication {

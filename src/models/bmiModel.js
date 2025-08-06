@@ -1,6 +1,6 @@
 import bmiRanges from '../config/bmiRanges.json';
-import { MetricStrategy } from '../strategies/metricStrategy.js';
-import { ImperialStrategy } from '../strategies/imperialStrategy.js';
+import { MetricStrategy } from '../utils/strategies/metricStrategy.js';
+import { ImperialStrategy } from '../utils/strategies/imperialStrategy.js';
 
 export class BmiModel {
     #height = 0;
@@ -171,45 +171,61 @@ export class BmiModel {
     calculateAgeFromDateOfBirth(dateOfBirth) {
         if (!dateOfBirth) throw new Error('Date of birth is required');
 
-        const [day, month, year] = dateOfBirth.split('/').map(Number);
+        // Handle YYYY-MM-DD format from date input
+        let year, month, day;
+        if (dateOfBirth.includes('-')) {
+            // YYYY-MM-DD format
+            [year, month, day] = dateOfBirth.split('-').map(Number);
+        } else if (dateOfBirth.includes('/')) {
+            // DD/MM/YYYY format (legacy support)
+            [day, month, year] = dateOfBirth.split('/').map(Number);
+        } else {
+            throw new Error('Invalid date format. Use YYYY-MM-DD or DD/MM/YYYY');
+        }
+
         if (!day || !month || !year) {
-            throw new Error('Invalid date format. Use DD/MM/YYYY');
+            throw new Error('Invalid date format');
         }
 
         const today = new Date();
+        const birthDate = new Date(year, month - 1, day);
+
+        // Validate the birth date
+        if (birthDate > today) {
+            throw new Error('Date of birth cannot be in the future');
+        }
+
+        if (year < (today.getFullYear() - 200)) {
+            throw new Error('Age cannot be more than 200 years');
+        }
+
         let age = today.getFullYear() - year;
-        let monthDiff = today.getMonth() - (month - 1);
+        const monthDiff = today.getMonth() - (month - 1);
 
         if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < day)) {
             age--;
-            monthDiff += 12;
         }
 
-        if (today.getDate() < day) {
-            monthDiff--;
-            if (monthDiff < 0) {
-                monthDiff += 12;
-                age--;
-            }
-        }
-
-        if (age < 0 || age > 150) {
+        if (age < 0 || age > 200) {
             throw new Error('Invalid age calculated from date of birth');
         }
 
-        return { years: age, months: monthDiff };
+        return { years: age, months: Math.abs(monthDiff) };
     }
 
     setAgeFromDateOfBirth(dateOfBirth) {
+        if (!dateOfBirth) {
+            throw new Error('Date of birth is required');
+        }
+
         const ageData = this.calculateAgeFromDateOfBirth(dateOfBirth);
-        this.age = ageData.years;
+        this.#age = ageData.years;
         this.#detailedAge = ageData;
-        this.#notifyObservers('age', ageData.years, null);
-        return ageData;
+        this.#notifyObservers('age', this.#age);
     }
 
     getDetailedAge() {
-        return this.#detailedAge || { years: this.#age, months: 0 };
+        return this.#detailedAge;
     }
 
     toJSON() {

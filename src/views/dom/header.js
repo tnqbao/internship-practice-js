@@ -1,14 +1,27 @@
 import { createLogo } from './components/logo.js';
 import { createRepositoryButton} from "./components/githubButton.js";
 import {createHeaderInformation} from "./components/headerInformation.js";
-import {customizeElement} from "../utils/handleElement.js";
+import {customizeElement} from "../../utils/handleElement.js";
 import {createHeaderNavbar} from "./components/headerNavbar.js";
+import { DOMView } from './DOMView.js';
 
 export function createHeader(controller = null) {
-    class HeaderView {
-        constructor() {
-            this.elements = {};
+    class HeaderView extends DOMView {
+        constructor(controller) {
+            super(controller);
             this.isInitialized = false;
+        }
+
+        updateFormFields(data) {
+            void data;
+        }
+
+        displayBMIResult(result) {
+            void result;
+        }
+
+        showResult(result) {
+            void result;
         }
 
         #createHeaderComponents() {

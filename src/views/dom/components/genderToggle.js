@@ -1,4 +1,4 @@
-import {customizeElement} from "../../utils/handleElement.js";
+import {customizeElement} from "../../../utils/handleElement.js";
 
 export function createGenderToggle() {
     const maleButton = customizeElement(document.createElement('button'), {

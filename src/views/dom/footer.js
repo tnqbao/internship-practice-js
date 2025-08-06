@@ -1,11 +1,25 @@
-import {customizeElement, wrapElement} from "../utils/handleElement.js";
+import {customizeElement, wrapElement} from "../../utils/handleElement.js";
+import { DOMView } from './DOMView.js';
 import {createLogo} from "./components/logo.js";
 
 export function createFooter(controller = null) {
-    class FooterView {
-        constructor() {
+    class FooterView extends DOMView {
+        constructor(controller) {
+            super(controller);
             this.elements = {};
             this.isInitialized = false;
+        }
+
+        updateFormFields(data) {
+            void data;
+        }
+
+        displayBMIResult(result) {
+            void result;
+        }
+
+        showResult(result) {
+            void result;
         }
 
         #createPhoneContact() {
@@ -54,7 +68,7 @@ export function createFooter(controller = null) {
 
         render() {
             const footerInfo = this.#createFooterInfo();
-            const footerWrapper = wrapElement(footerInfo, 'div', {
+            const footerWrapper = customizeElement(document.createElement('div'), {
                 className: ['footer-information-wrapper', 'flex', 'flex-col', 'items-center', 'justify-center', 'w-full', 'p-md'],
                 id: 'footer',
                 children: [footerInfo]

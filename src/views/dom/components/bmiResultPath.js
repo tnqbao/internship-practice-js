@@ -1,5 +1,5 @@
-import { customizeElement } from "../../utils/handleElement.js";
-import bmiRanges from "../../config/bmiRanges.json" with { type: 'json' };
+import { customizeElement } from "../../../utils/handleElement.js";
+import bmiRanges from "../../../config/bmiRanges.json" with { type: 'json' };
 
 function createBmiLine({ id, label }) {
     return customizeElement(document.createElement('div'), {

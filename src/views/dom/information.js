@@ -1,10 +1,24 @@
-import {customizeElement} from "../utils/handleElement.js";
+import {customizeElement} from "../../utils/handleElement.js";
+import { DOMView } from './DOMView.js';
 
 export function createInformation(controller = null) {
-    class InformationView {
-        constructor() {
+    class InformationView extends DOMView {
+        constructor(controller) {
+            super(controller);
             this.elements = {};
             this.isInitialized = false;
+        }
+
+        updateFormFields(data) {
+            void data;
+        }
+
+        displayBMIResult(result) {
+            void result;
+        }
+
+        showResult(result) {
+            void result;
         }
 
         onUnitChange(newUnit) {

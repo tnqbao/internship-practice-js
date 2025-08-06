@@ -1,4 +1,4 @@
-import {customizeElement} from "../../utils/handleElement.js";
+import {customizeElement} from "../../../utils/handleElement.js";
 
 export function createBMIResultIdeal() {
     const bmiResultNumberAge = customizeElement(document.createElement('div'), {

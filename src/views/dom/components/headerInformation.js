@@ -1,4 +1,4 @@
-import {customizeElement, wrapElement} from "../../utils/handleElement.js";
+import {customizeElement, wrapElement} from "../../../utils/handleElement.js";
 
 export function createHeaderInformation() {
     const author = customizeElement(document.createElement('p'), {
