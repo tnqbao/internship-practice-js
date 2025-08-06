@@ -1,17 +1,13 @@
-import {customizeElement} from "../utils/handleElement.js";
+import {customizeElement} from "../../utils/handleElement.js";
 import {createGenderToggle} from "./components/genderToggle.js";
-import validation from '../config/validation.json' with { type: 'json' };
+import validation from '../../config/validation.json' with { type: 'json' };
+import { DOMView } from './DOMView.js';
 
 export function createFormView(controller) {
-    class FormView {
+    class FormView extends DOMView {
         constructor(controller) {
-            this.controller = controller;
+            super(controller);
             this.currentUnit = 'metric';
-            this.elements = {};
-        }
-
-        bindModel(model) {
-            this.model = model;
         }
 
         onUnitChange(newUnit) {
@@ -19,12 +15,20 @@ export function createFormView(controller) {
             this.#updateValidationRules();
         }
 
-        onDataChange(modelData) {
+        updateDisplay(modelData) {
             this.#updateFormValidation(modelData);
         }
 
-        onValidationError(field, message) {
-            this.#showFieldError(field, message);
+        showValidationError(field, message) {
+            super.showValidationError(field, message);
+        }
+
+        updateFormFields(data) {
+            if (data) {
+                this.updateFieldValidation('height', data.height > 0);
+                this.updateFieldValidation('weight', data.weight > 0);
+                this.updateFieldValidation('age', data.age > 0);
+            }
         }
 
         #handleHeightChange(value) {
@@ -67,21 +71,9 @@ export function createFormView(controller) {
         }
 
         #updateFormValidation(modelData) {
-            this.#updateFieldValidation('height', modelData.height > 0);
-            this.#updateFieldValidation('weight', modelData.weight > 0);
-            this.#updateFieldValidation('age', modelData.age > 0);
-        }
-
-        #updateFieldValidation(fieldName, isValid) {
-            const input = this.elements[`${fieldName}Input`];
-            if (input) {
-                input.classList.toggle('valid', isValid);
-                input.classList.toggle('invalid', !isValid);
-            }
-        }
-
-        #showFieldError(field, message) {
-            console.warn(`${field}: ${message}`);
+            this.updateFieldValidation('height', modelData.height > 0);
+            this.updateFieldValidation('weight', modelData.weight > 0);
+            this.updateFieldValidation('age', modelData.age > 0);
         }
 
         #createAgeField() {

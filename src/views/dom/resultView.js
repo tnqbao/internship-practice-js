@@ -1,19 +1,84 @@
-import { customizeElement } from "../utils/handleElement.js";
+import { customizeElement } from "../../utils/handleElement.js";
 import { createBmiResultPath } from "./components/bmiResultPath.js";
 import { createBMIResultIdeal } from "./components/bmiResultIdeal.js";
 import { createBMIResultDesc } from "./components/bmiResultDesc.js";
 import { createBMIDefault } from "./components/bmiDefaultContent.js";
+import { DOMView } from './DOMView.js';
 
 export function createResultView(controller = null) {
-    class ResultView {
-        constructor() {
+    class ResultView extends DOMView {
+        constructor(controller) {
+            super(controller);
             this.elements = {};
         }
 
-        bindModel(model) {
-            this.model = model;
+        updateFormFields(data) {
+            void data;
         }
 
+        displayBMIResult(result) {
+            if (result && result.bmi) {
+                this.showBMIResult(result);
+            } else {
+                this.showDefaultContent();
+            }
+        }
+
+        showResult(result) {
+            this.displayBMIResult(result);
+        }
+
+        showBMIResult(result) {
+            // Hide default content
+            if (this.elements.defaultContent) {
+                this.elements.defaultContent.style.display = 'none';
+            }
+
+            // Show result components
+            if (this.elements.resultNumber) {
+                this.elements.resultNumber.classList.remove('hidden');
+            }
+            if (this.elements.resultPath) {
+                this.elements.resultPath.style.display = 'flex';
+            }
+
+            // Update BMI value
+            if (this.elements.bmiValue) {
+                this.elements.bmiValue.textContent = result.bmi.toFixed(1);
+            }
+
+            // Update category and description
+            if (this.elements.categoryElement && result.category) {
+                this.elements.categoryElement.textContent = result.category.label;
+                this.elements.categoryElement.style.color = result.category.color;
+            }
+
+            // Update ideal weight
+            if (this.elements.idealWeightElement && result.idealWeight) {
+                this.elements.idealWeightElement.textContent =
+                    `${result.idealWeight.min} - ${result.idealWeight.max} ${result.weightUnit}`;
+            }
+
+            // Update age
+            if (this.elements.ageElement && result.age) {
+                this.elements.ageElement.textContent = `${result.age} years`;
+            }
+        }
+
+        showDefaultContent() {
+            // Show default content
+            if (this.elements.defaultContent) {
+                this.elements.defaultContent.style.display = 'flex';
+            }
+
+            // Hide result components
+            if (this.elements.resultNumber) {
+                this.elements.resultNumber.classList.add('hidden');
+            }
+            if (this.elements.resultPath) {
+                this.elements.resultPath.style.display = 'none';
+            }
+        }
 
         #createResultTitle() {
             const resultTitle = customizeElement(document.createElement('h2'), {

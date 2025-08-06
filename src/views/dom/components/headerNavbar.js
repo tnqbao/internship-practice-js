@@ -1,4 +1,4 @@
-import { customizeElement, wrapElement } from "../../utils/handleElement.js";
+import { customizeElement, wrapElement } from "../../../utils/handleElement.js";
 
 export function createHeaderNavbar(logo, repositoryButton) {
     const headerNavbar = customizeElement(document.createElement('div'), {
