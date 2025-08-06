@@ -2,6 +2,9 @@ import {customizeElement} from "../../utils/handleElement.js";
 import {createGenderToggle} from "./components/genderToggle.js";
 import validation from '../../config/validation.json' with { type: 'json' };
 import { DOMView } from './DOMView.js';
+import { createAgeField } from './components/ageField.js';
+import { createHeightField } from './components/heightField.js';
+import { createWeightField } from './components/weightField.js';
 
 export function createFormView(controller) {
     class FormView extends DOMView {
@@ -76,99 +79,6 @@ export function createFormView(controller) {
             this.updateFieldValidation('age', modelData.age > 0);
         }
 
-        #createAgeField() {
-            // Calculate the maximum date (200 years ago from today)
-            const today = new Date();
-            const maxDate = new Date(today.getFullYear() - 200, today.getMonth(), today.getDate());
-            const maxDateString = maxDate.toISOString().split('T')[0];
-            const todayString = today.toISOString().split('T')[0];
-
-            const ageField = customizeElement(document.createElement('div'), {
-                className: ['flex', 'flex-col', 'flex-1', 'flex-wrap', 'm-b-sm'],
-                children: [
-                    customizeElement(document.createElement('label'), {
-                        className: ['text-primary', 'p-x-sm'],
-                        htmlFor: 'age-input',
-                        innerHTML: '<h3 class="text-secondary">Date of Birth</h3>'
-                    }),
-                    customizeElement(document.createElement('input'), {
-                        type: 'date',
-                        className: ['age-input', 'flex', 'flex-1', 'w-full', 'p-sm', 'm-b-sm', 'border', 'rounded-1'],
-                        id: 'age-input',
-                        dataset: { component: 'age-input' },
-                        min: maxDateString,
-                        max: todayString,
-                        events: {
-                            change: (event) => this.#handleAgeChange(event.target.value),
-                        }
-                    })
-                ]
-            });
-
-            this.elements.ageInput = ageField.querySelector('#age-input');
-            return ageField;
-        }
-
-        #createHeightField() {
-            const heightField = customizeElement(document.createElement('div'), {
-                className: ['flex', 'flex-col', 'flex-1', 'flex-wrap', 'm-b-md'],
-                children: [
-                    customizeElement(document.createElement('label'), {
-                        className: ['text-primary', 'p-x-sm'],
-                        htmlFor: 'height-input',
-                        innerHTML: '<h3 class="text-secondary">Height</h3>'
-                    }),
-                    customizeElement(document.createElement('input'), {
-                        type: 'number',
-                        className: ['height-input', 'flex', 'flex-1', 'w-full', 'p-sm', 'm-b-sm', 'border', 'rounded-1'],
-                        placeholder: 'Enter your height',
-                        id: 'height-input',
-                        dataset: { component: 'height-input' },
-                        step: 0.1,
-                        min: validation.metric.height.min,
-                        max: validation.metric.height.max,
-                        events: {
-                            input: (event) => this.#handleHeightChange(event.target.value),
-                            change: (event) => this.#handleHeightChange(event.target.value)
-                        }
-                    })
-                ]
-            });
-
-            this.elements.heightInput = heightField.querySelector('#height-input');
-            return heightField;
-        }
-
-        #createWeightField() {
-            const weightField = customizeElement(document.createElement('div'), {
-                className: ['flex', 'flex-col', 'flex-1', 'flex-wrap', 'm-b-xs'],
-                children: [
-                    customizeElement(document.createElement('label'), {
-                        className: ['text-primary', 'p-x-sm'],
-                        htmlFor: 'weight-input',
-                        innerHTML: '<h3 class="text-secondary">Weight</h3>'
-                    }),
-                    customizeElement(document.createElement('input'), {
-                        type: 'number',
-                        className: ['weight-input', 'flex', 'flex-1', 'w-full', 'p-sm', 'm-b-lg', 'border', 'rounded-1'],
-                        placeholder: 'Enter your weight',
-                        id: 'weight-input',
-                        dataset: { component: 'weight-input' },
-                        step: 0.1,
-                        min: validation.metric.weight.min,
-                        max: validation.metric.weight.max,
-                        events: {
-                            input: (event) => this.#handleWeightChange(event.target.value),
-                            change: (event) => this.#handleWeightChange(event.target.value)
-                        }
-                    })
-                ]
-            });
-
-            this.elements.weightInput = weightField.querySelector('#weight-input');
-            return weightField;
-        }
-
         #createUnitToggleButton() {
             const unitToggleButton = customizeElement(document.createElement('button'), {
                 className: ['unit-toggle-button', 'flex', 'w-half', 'flex-center', 'bg-secondary', 'color-primary', 'p-sm', 'rounded', 'mt-4'],
@@ -207,11 +117,15 @@ export function createFormView(controller) {
 
         render() {
             const genderToggle = createGenderToggle();
-            const ageField = this.#createAgeField();
-            const heightField = this.#createHeightField();
-            const weightField = this.#createWeightField();
+            const ageField = createAgeField(this.#handleAgeChange.bind(this));
+            const heightField = createHeightField(this.#handleHeightChange.bind(this), this.currentUnit);
+            const weightField = createWeightField(this.#handleWeightChange.bind(this), this.currentUnit);
             const calculateButton = this.#createCalculateButton();
             const unitToggleButton = this.#createUnitToggleButton();
+
+            this.elements.ageInput = ageField.querySelector('#age-input');
+            this.elements.heightInput = heightField.querySelector('#height-input');
+            this.elements.weightInput = weightField.querySelector('#weight-input');
 
             const formWrapper = customizeElement(document.createElement('div'), {
                 className: ['bmi-form-wrapper', 'flex', 'flex-col', 'container', 'flex-wrap', 'items-center', 'justify-center', 'w-full', 'h-full', 'p-lg', 'rounded-6', 'gap-sm'],

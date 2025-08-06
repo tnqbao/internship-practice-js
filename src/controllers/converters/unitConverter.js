@@ -4,12 +4,12 @@ export function updateInputValues(fromUnit, toUnit, model) {
 
     if (heightInput?.value) {
         const value = parseFloat(heightInput.value);
-        heightInput.value = model.convertHeight(value, fromUnit, toUnit).toFixed(1);
+        heightInput.value = model.convertHeight(value, fromUnit, toUnit).toFixed(2);
     }
 
     if (weightInput?.value) {
         const value = parseFloat(weightInput.value);
-        weightInput.value = model.convertWeight(value, fromUnit, toUnit).toFixed(1);
+        weightInput.value = model.convertWeight(value, fromUnit, toUnit).toFixed(2);
     }
 }
 
