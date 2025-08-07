@@ -1,0 +1,9 @@
+node_modules
+.dockerignore
+Dockerfile
+yarn-error.log
+npm-debug.log
+.env
+test/
+*.md
+.eslint*

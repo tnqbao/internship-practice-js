@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: practice-js-deployment
+  namespace: agility-${DEPLOY_ENV}-env
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: practice-js-service
+  template:
+    metadata:
+      labels:
+        app: practice-js-service
+    spec:
+      containers:
+        - name: practice-js-service
+          image: iamqbao/agility-practice-js:latest
+          resources:
+            requests:
+              cpu: "0.1"
+              memory: "100Mi"
+            limits:
+              cpu: "0.1"
+              memory: "200Mi"
+---

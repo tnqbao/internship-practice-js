@@ -1,0 +1,208 @@
+.flex {
+  display: flex;
+
+  &-row {
+    flex-direction: row;
+  }
+
+  &-column {
+    flex-direction: column;
+  }
+
+  &-wrap {
+    flex-wrap: wrap;
+  }
+
+  &-auto {
+    flex: auto;
+  }
+
+  &-none {
+    flex: none;
+  }
+
+  &-grow {
+    flex-grow: 1;
+  }
+
+  &-1 {
+    flex-basis: 100%;
+  }
+
+  &-2 {
+    flex-basis: 50%;
+  }
+
+  &-3 {
+    flex-basis: 33.33%;
+  }
+
+  &-4 {
+    flex-basis: 25%;
+  }
+}
+
+.flex-center {
+  justify-content: center;
+  align-items: center;
+}
+
+.flex-start {
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.flex-end {
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.justify {
+  &-center {
+    justify-content: center;
+  }
+
+  &-start {
+    justify-content: flex-start;
+  }
+
+  &-end {
+    justify-content: flex-end;
+  }
+
+  &-between {
+    justify-content: space-between;
+  }
+
+  &-around {
+    justify-content: space-around;
+  }
+
+  &-evenly {
+    justify-content: space-evenly;
+  }
+}
+
+.item {
+  &-center {
+    align-self: center;
+  }
+
+  &-start {
+    align-self: flex-start;
+  }
+
+  &-end {
+    align-self: flex-end;
+  }
+
+  &-stretch {
+    align-self: stretch;
+  }
+
+  &-baseline {
+    align-self: baseline;
+  }
+}
+
+.self {
+  &-center {
+    align-items: center;
+  }
+
+  &-start {
+    align-items: flex-start;
+  }
+
+  &-end {
+    align-items: flex-end;
+  }
+
+  &-stretch {
+    align-items: stretch;
+  }
+
+  &-baseline {
+    align-items: baseline;
+  }
+}
+
+.items {
+  &-center {
+    align-items: center;
+  }
+
+  &-start {
+    align-items: flex-start;
+  }
+
+  &-end {
+    align-items: flex-end;
+  }
+
+  &-stretch {
+    align-items: stretch;
+  }
+}
+
+.gap {
+  &-1 {
+    gap: var(--spacing-xs);
+  }
+
+  &-2 {
+    gap: var(--spacing-sm);
+  }
+
+  &-3 {
+    gap: var(--spacing-md);
+  }
+
+  &-4 {
+    gap: var(--spacing-lg);
+  }
+}
+
+.gap {
+  &-xs {
+    gap: var(--spacing-xs);
+  }
+
+  &-sm {
+    gap: var(--spacing-sm);
+  }
+
+  &-md {
+    gap: var(--spacing-md);
+  }
+
+  &-lg {
+    gap: var(--spacing-lg);
+  }
+}
+
+.w {
+  &-full {
+    width: 100%;
+  }
+
+  &-auto {
+    width: auto;
+  }
+
+  &-half {
+    width: 45%;
+  }
+
+  &-third {
+    width: 33.33%;
+  }
+
+  &-quarter {
+    width: 25%;
+  }
+
+    &-fit {
+        width: fit-content;
+    }
+}

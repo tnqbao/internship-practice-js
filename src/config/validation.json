@@ -1,0 +1,22 @@
+{
+  "metric": {
+    "height": {
+      "min": 30,
+      "max": 250
+    },
+    "weight": {
+      "min": 0.5,
+      "max": 300
+    }
+  },
+  "imperial": {
+    "height": {
+      "min": 11.8,
+      "max": 98.4
+    },
+    "weight": {
+      "min": 1.1,
+      "max": 661.4
+    }
+  }
+}
